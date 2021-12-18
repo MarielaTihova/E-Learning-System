@@ -10,7 +10,4 @@ export class JWTPayload {
   avatar: string;
 
   registerDate: Date;
-  booksBorrowed: Book[];
-  bookReviews: Review[];
-  booksBorrowedHistory: Book[];
 }

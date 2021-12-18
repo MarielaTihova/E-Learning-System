@@ -52,7 +52,7 @@ export class UsersService {
         if (existingUsername !== undefined) {
             throw new BadRequestException(`Username ${userDto.username} is already taken!`);
         }
-        // add validation for password 
+        // add validation for password
 
         const user = this.usersRepository.create(userDto);
 
@@ -65,40 +65,40 @@ export class UsersService {
 
 
 
-    public async readUserReviews(id: number): Promise<ReviewDTO[]> {
-        if (!this.usersRepository.find({ where: { id: id, isDeleted: false } })) {
-            throw new BadRequestException(`User with id ${id} does not exist!`);
-        }
+    // public async readUserReviews(id: number): Promise<ReviewDTO[]> {
+    //     if (!this.usersRepository.find({ where: { id: id, isDeleted: false } })) {
+    //         throw new BadRequestException(`User with id ${id} does not exist!`);
+    //     }
 
-        const foundUser = await this.usersRepository.findOne({ id: id, isDeleted: false }, {
-            relations: ['booksBorrowed', 'bookVotes', 'bookRatings',
-                'bookVotes.reviewVotedFor', 'bookRatings.bookName',
-                'bookReviews', 'bookReviews.bookName', 'bookReviews.votes', 'bookReviews.votes.madeBy']
-        });
-        return foundUser.bookReviews.filter(rev => rev.isDeleted === false);
-    }
+    //     const foundUser = await this.usersRepository.findOne({ id: id, isDeleted: false }, {
+    //         relations: ['booksBorrowed', 'bookVotes', 'bookRatings',
+    //             'bookVotes.reviewVotedFor', 'bookRatings.bookName',
+    //             'bookReviews', 'bookReviews.bookName', 'bookReviews.votes', 'bookReviews.votes.madeBy']
+    //     });
+    //     return foundUser.bookReviews.filter(rev => rev.isDeleted === false);
+    // }
 
-    public async getUserReviewById(userId: number,
-        reviewId: number): Promise<ReviewDTO> {
-        if (!this.usersRepository.find({ where: { id: userId, isDeleted: false } })) {
-            throw new BadRequestException(`User with id ${userId} does not exist!`);
-        }
-        const userFound = await this.usersRepository.findOne({ id: userId, isDeleted: false }, {
-            relations: ['booksBorrowed', 'bookVotes', 'bookRatings',
-                'bookVotes.reviewVotedFor', 'bookRatings.bookName',
-                'bookReviews', 'bookReviews.votes', 'bookReviews.votes.madeBy', 'bookReviews.bookName']
-        });
+    // public async getUserReviewById(userId: number,
+    //     reviewId: number): Promise<ReviewDTO> {
+    //     if (!this.usersRepository.find({ where: { id: userId, isDeleted: false } })) {
+    //         throw new BadRequestException(`User with id ${userId} does not exist!`);
+    //     }
+    //     const userFound = await this.usersRepository.findOne({ id: userId, isDeleted: false }, {
+    //         relations: ['booksBorrowed', 'bookVotes', 'bookRatings',
+    //             'bookVotes.reviewVotedFor', 'bookRatings.bookName',
+    //             'bookReviews', 'bookReviews.votes', 'bookReviews.votes.madeBy', 'bookReviews.bookName']
+    //     });
 
-        if (userFound.bookReviews.length == 0) {
-            throw new BadRequestException(`The user with id: ${userFound.id} and username: ${userFound.username} has no reviews`);
-        }
-        if (!userFound.bookReviews.find(rev => rev.id === reviewId)) {
-            throw new BadRequestException(`No review with id: ${reviewId} for user with id: ${userId}`);
-        }
+    //     if (userFound.bookReviews.length == 0) {
+    //         throw new BadRequestException(`The user with id: ${userFound.id} and username: ${userFound.username} has no reviews`);
+    //     }
+    //     if (!userFound.bookReviews.find(rev => rev.id === reviewId)) {
+    //         throw new BadRequestException(`No review with id: ${reviewId} for user with id: ${userId}`);
+    //     }
 
-        const reviewWanted = userFound.bookReviews.find(rev => rev.id === reviewId && rev.isDeleted === false);
-        return reviewWanted;
-    }
+    //     const reviewWanted = userFound.bookReviews.find(rev => rev.id === reviewId && rev.isDeleted === false);
+    //     return reviewWanted;
+    // }
 
     public async deleteUserById(
         userId: number): Promise<UserDTO> {

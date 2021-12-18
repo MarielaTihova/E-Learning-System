@@ -11,9 +11,7 @@ export class TransformService {
             personalName: user.personalName,
             isDeleted: user.isDeleted,
             avatar: user.avatar,
-            registerDate: user.registerDate,
-            booksBorrowed: user.booksBorrowed,
-            bookReviews: user.bookReviews,
+            registerDate: user.registerDate
         }
     }
 
@@ -25,7 +23,7 @@ export class TransformService {
             text: review.text,
             bookName: review.bookName,
             votes: review.votes,
-            madeBy: review.madeBy,
+            //madeBy: review.madeBy,
             isDeleted: review.isDeleted,
         }
     }

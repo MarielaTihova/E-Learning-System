@@ -66,10 +66,7 @@ export class AuthService {
       personalName: user.personalName,
       role: UserRole[user.role],
       avatar: user.avatar,
-      registerDate: user.registerDate,
-      booksBorrowed: user.booksBorrowed,
-      bookReviews: user.bookReviews,
-      booksBorrowedHistory: user.booksBorrowedHistory
+      registerDate: user.registerDate
     }
 
     const token = await this.jwtService.signAsync(payload);
@@ -83,4 +80,3 @@ export class AuthService {
   // Logout
 
 }
-

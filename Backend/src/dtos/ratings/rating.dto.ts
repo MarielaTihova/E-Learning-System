@@ -6,5 +6,5 @@ export class RatingDTO {
     id: number;
     bookName: Book;
     points: RatingPoints;
-    madeBy: User;
+    //madeBy: User;
 }

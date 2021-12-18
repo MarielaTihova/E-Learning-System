@@ -7,6 +7,6 @@ export class ReviewDTO {
     text: string;
     votes: ReviewReaction[];
     bookName: Book;
-    madeBy: User;
+    //madeBy: User;
     isDeleted: boolean;
 }

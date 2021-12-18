@@ -7,6 +7,4 @@ export class UserDTO {
     isDeleted: boolean;
     avatar: string;
     registerDate: Date;
-    booksBorrowed: Book[];
-    bookReviews: Review[];
 }

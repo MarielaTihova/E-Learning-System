@@ -43,28 +43,28 @@ export class UsersController {
         return this.usersService.getUserById(+id);
     }
 
-    // ADMIN
-    // @UseGuards(AuthGuard('jwt'), new RolesGuard(UserRole.Admin))
-    @UseGuards(BlacklistGuard, new RolesGuard(UserRole.Admin))
-    @Get(':id/reviews')
-    @HttpCode(HttpStatus.FOUND)
-    async readUserReviews(@Param('id') id: string): Promise<ReviewDTO[]> {
-        return await this.usersService.readUserReviews(+id)
-    }
+    // // ADMIN
+    // // @UseGuards(AuthGuard('jwt'), new RolesGuard(UserRole.Admin))
+    // @UseGuards(BlacklistGuard, new RolesGuard(UserRole.Admin))
+    // @Get(':id/reviews')
+    // @HttpCode(HttpStatus.FOUND)
+    // async readUserReviews(@Param('id') id: string): Promise<ReviewDTO[]> {
+    //     return await this.usersService.readUserReviews(+id)
+    // }
 
 
     // ADMIN
     // @UseGuards(AuthGuard('jwt'), new RolesGuard(UserRole.Admin))
-    @UseGuards(BlacklistGuard, new RolesGuard(UserRole.Admin))
-    @Get(':id/reviews/:reviewsId')  // I think that should be :id/userreviews/rreviewsID
-    @HttpCode(HttpStatus.FOUND)
-    async getBookReviewById(@Param('id') bookId: string,
-        @Param('reviewId') reviewId: string): Promise<ReviewDTO> {
-        return await this.usersService.getUserReviewById(+bookId, +reviewId);
-    }
+    // @UseGuards(BlacklistGuard, new RolesGuard(UserRole.Admin))
+    // @Get(':id/reviews/:reviewsId')  // I think that should be :id/userreviews/rreviewsID
+    // @HttpCode(HttpStatus.FOUND)
+    // async getBookReviewById(@Param('id') bookId: string,
+    //     @Param('reviewId') reviewId: string): Promise<ReviewDTO> {
+    //     return await this.usersService.getUserReviewById(+bookId, +reviewId);
+    // }
 
 
-    // ADMIN 
+    // ADMIN
     // @UseGuards(AuthGuard('jwt'), new RolesGuard(UserRole.Admin))
     @UseGuards(BlacklistGuard, new RolesGuard(UserRole.Admin))
     @Delete(':id')

@@ -10,9 +10,6 @@ export class Rating {
     @ManyToOne(() => Book, book => book.ratings)
     bookName: Book;
 
-    @ManyToOne(() => User, user => user.bookVotes)
-    madeBy: User;
-
     @Column({ type: 'int', nullable: false })
     points: RatingPoints;
 }

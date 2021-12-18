@@ -8,10 +8,6 @@ export class ReviewReaction { //Vote
     @PrimaryGeneratedColumn()
     id: number;
 
-    // who reacted to the review
-    @ManyToOne(() => User, user => user.bookVotes, { onDelete: "CASCADE" })
-    madeBy: User // madeby
-
     // what review was liked/disliked
     @ManyToOne(() => Review, rev => rev.votes, { onDelete: "CASCADE" })
     reviewVotedFor: Review;

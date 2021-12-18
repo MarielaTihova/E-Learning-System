@@ -9,12 +9,12 @@ import { Book } from 'src/models/book.entity';
 import { Review } from 'src/models/review.entity';
 import { Rating } from 'src/models/rating.entity';
 import { ReviewReaction } from 'src/models/review-reaction.entity';
-import { BooksService } from './books.service';
+// import { BooksService } from './books.service';
 import {PassportModule} from '@nestjs/passport'
 import {JwtModule} from '@nestjs/jwt'
 import { jwtConstants } from 'src/constant/secret';
 import { AuthService } from './auth.service';
-import { ReviewReactionsService } from './review-reactions.service';
+//import { ReviewReactionsService } from './review-reactions.service';
 
 
 
@@ -28,7 +28,7 @@ import { ReviewReactionsService } from './review-reactions.service';
         expiresIn: '7d',
       }
     }),],
-    providers: [UsersService, BooksService, TransformService, ReviewReactionsService, AuthService, JwtStrategy],
-    exports: [UsersService, BooksService, TransformService,ReviewReactionsService, AuthService] // AuthService
+    providers: [UsersService, TransformService,  AuthService, JwtStrategy],
+    exports: [UsersService, TransformService, AuthService] // AuthService
 })
 export class ServicesModule { }

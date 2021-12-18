@@ -18,11 +18,11 @@ const ShowProfile = (props) => {
         id: 1,
         username: "",
         personalName: "",
-        bookRatings: [],
-        bookReviews: [],
+        // bookRatings: [],
+        // bookReviews: [],
         avatar: "",
-        booksBorrowed: [],
-        booksBorrowedHistory: [],
+        // booksBorrowed: [],
+        // booksBorrowedHistory: [],
     });
 
 
@@ -55,22 +55,6 @@ const ShowProfile = (props) => {
     return (
         <div className="ShowProfile">
             <User2 user={appUser} />
-            <h3>Ratings: <div className="profile-ratings">{appUser.bookRatings.map(r =>
-                <div >
-                    <p>Points: <b>{r.points}</b></p>
-                    <p>For book: <b>{r.bookName.name}</b></p>
-                    <img height="350px" width="250px" src={r.bookName.poster} />
-                </div>
-
-            )}</div></h3>
-
-
-            <h3>Books borrowed at the moment:<div className="booksBorrowed">{appUser.booksBorrowed ? <h2> {appUser.booksBorrowed.map(b =>
-                <Book book={b} />
-            )}</h2> : null}</div></h3>
-
-
-
         </div >
     )
 };

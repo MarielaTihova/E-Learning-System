@@ -16,9 +16,6 @@ export class Review {
     @ManyToOne(() => Book, book => book.reviews)
     bookName: Book;
 
-    @ManyToOne(() => User, user => user.bookReviews)
-    madeBy: User
-
     @Column({ default: false })
     isDeleted: boolean;
 }
