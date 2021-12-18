@@ -1,0 +1,42 @@
+div.polaroid {
+    width: 284px;
+    padding: 10px 10px 20px 10px;
+    border: 1px solid #BFBFBF;
+    background-color: #aa66cc;
+    box-shadow: 10px 10px 5px #aaaaaa;
+    border-radius:5%;
+  }
+  
+  div .rotated-image{
+      width:260px;
+      height:300px;
+      border: 3px solid white;
+      border-radius:5%;
+  }
+  div.rotate_right {
+    float: left;
+    -ms-transform: rotate(7deg); /* IE 9 */
+    -webkit-transform: rotate(7deg); /* Safari */
+    transform: rotate(7deg);
+  }
+  
+  div.rotate_left {
+    float: left;
+    -ms-transform: rotate(-8deg); /* IE 9 */
+    -webkit-transform: rotate(-8deg); /* Safari */
+    transform: rotate(-8deg);
+  }
+
+  .caption{
+      color:white;
+      text-align:center;
+      margin-top:5%;
+  }
+
+  #many-more{
+      margin-top:10%;
+      text-align: center;
+      font-size: 350%;
+      color:#aa66cc;
+      text-shadow: 4px 4px 8px #aa66cc;
+  }

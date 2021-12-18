@@ -1,0 +1,63 @@
+.rat{
+    display:grid;
+    grid-template-columns: repeat(auto-fill, 286px);
+    grid-column-gap: 30px;
+    grid-row-gap: 10px;
+}
+
+#rating-points-categories{
+    display:grid;
+    grid-template-columns: repeat(auto-fill, 230px);
+    grid-column-gap: 40px;
+    grid-row-gap: 10px;
+    margin-left:10%;
+    margin-right:3%;
+}
+
+.rev{
+    padding:0px;
+    margin-bottom: 20px;
+    background-color: white;
+
+}
+
+
+.single-book {
+    display:grid;
+    grid-template-columns: 1fr 2fr;
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
+  margin-top: 10%;
+  margin-left: 10%;
+  text-align: left;
+  margin-bottom:10%;
+  margin-right: 2%;
+  
+}
+.view-review{
+    margin-left: 2%;
+}
+
+#book-poster{
+    box-shadow:0  5px 50px  #aa66cc;
+}
+
+#book-name{
+    color:#aa66cc;
+    text-shadow: 4px 4px 8px #aa66cc;
+}
+
+#book-details{
+    border: 2px solid #aa66cc;
+    padding:3% 10% 3% 6%;
+    box-shadow: 5px 10px #aa66cc;
+    margin-right:5%;
+}
+
+#ratings-intro{
+    font-size: 250%;
+    color:#aa66cc;
+    text-shadow: 4px 4px 8px #aa66cc;
+    text-align: center;
+    margin-bottom:5%;
+}

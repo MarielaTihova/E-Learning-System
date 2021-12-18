@@ -1,0 +1,23 @@
+.bg-custom {
+   padding-bottom: 0px;
+   background-color: hotpink;
+   vertical-align: bottom;
+  }
+
+.mr-auto a{
+    color:red;
+  }
+  
+.App{
+    /* background-color: #333333;*/
+     /*background-image: url('https://mdbootstrap.com/img/Photos/Others/gradient2.png');*/
+    /* background-color: rgb(228, 189, 228)*/
+     /*opacity:0.5;*/
+}
+  /* .mt-0 {
+    margin-top: 0 !important;
+  }
+
+  .mb-0 {
+    margin-top: 0 !important;
+  } */

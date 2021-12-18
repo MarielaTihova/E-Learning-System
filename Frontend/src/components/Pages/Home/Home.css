@@ -1,0 +1,29 @@
+#caltoaction .view {
+    min-height: 100vh !important;
+    height: unset !important;
+  }
+
+  /* #caltoaction .view {
+  background-image: url('http://mdbootstrap.com/img/Photos/Others/images/91.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    min-height: 100vh;
+  } */
+
+  .text-telerik {
+    font-size: 30px;
+  }
+
+  .link {
+    color: white;
+   text-decoration: none;
+   }
+
+   #carousel{
+     margin:10%;
+   }
+
+   #letsgoBtn{
+     margin-left:45%;
+   }

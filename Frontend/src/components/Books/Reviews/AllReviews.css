@@ -1,0 +1,33 @@
+#wrapper
+{
+  border: 4px solid #aa66cc;
+  padding:20px;
+  margin-left:50%;
+  margin-right:30%;
+  color:#aa66cc;
+  margin-top:2%;
+  border-radius:7%;
+}
+
+#wrapper #yes{
+  color:#00FF7F;
+  font-weight: bold;
+}
+
+#wrapper #no{
+  color:red;
+  font-weight: bold;
+}
+
+.mainDiv{
+  margin-top:8%;
+  margin-bottom: 10%;
+}
+
+#update-review-fields{
+  margin-left:25%;
+}
+
+.createBtn{
+  margin-left:32%;
+} 

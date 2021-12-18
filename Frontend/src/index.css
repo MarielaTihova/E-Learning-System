@@ -1,0 +1,19 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #333333;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+    
+}
+
+/* .background-img {
+  background-image: url('https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/5b43f994-9aa9-440b-b5ba-215847ef12d0/d2j98ao-ddb75044-e751-4626-bb6a-278568177ae4.jpg/v1/fill/w_1095,h_730,q_70,strp/simple_background___blue_by_kawaiifaerie_d2j98ao-pre.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOiIsImlzcyI6InVybjphcHA6Iiwib2JqIjpbW3siaGVpZ2h0IjoiPD04NTMiLCJwYXRoIjoiXC9mXC81YjQzZjk5NC05YWE5LTQ0MGItYjViYS0yMTU4NDdlZjEyZDBcL2Qyajk4YW8tZGRiNzUwNDQtZTc1MS00NjI2LWJiNmEtMjc4NTY4MTc3YWU0LmpwZyIsIndpZHRoIjoiPD0xMjgwIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmltYWdlLm9wZXJhdGlvbnMiXX0.gfu93YW5tYsavdeXiiD7-8NTayy1S6dIe5DeIBryYZE');
+} */

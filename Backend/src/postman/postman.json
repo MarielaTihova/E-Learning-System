@@ -1,0 +1,626 @@
+{
+	"info": {
+		"_postman_id": "88a386d1-f992-490e-81ce-7838cc3c2d6c",
+		"name": "3. TEAM 11 (DM)- Backend Project",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1.GET/ All Books",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/books",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"books"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2. GET/ Book By Id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/books/2",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"books",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3. GET/ All Users",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/users",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4. GET/ User By Id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/users/1",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "5. POST/ Register User",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": " {\r\n    \"username\": \"george\",\r\n    \"personalName\": \"TestTest\", \r\n   \"password\": \"HashMyPassword\"\r\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/users",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "6. GET/ User Reviews",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/users/3/reviews/",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users",
+						"3",
+						"reviews"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "7. GET/ User Review By Id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/users/3/reviews/400",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users",
+						"3",
+						"reviews",
+						"400"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "8. GET/ Book Reviews",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/books/1/reviews",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"books",
+						"1",
+						"reviews"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "9. GET/ Book Review By Id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/books/1/reviews/200",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"books",
+						"1",
+						"reviews",
+						"200"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "10. PUT/ Update Book Review",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"text\": \"BRILLIANT book!\"\r\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/books/1/reviews/200",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"books",
+						"1",
+						"reviews",
+						"200"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "11. DELETE/ Delete Book Review",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:3000/books/2/reviews/500",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"books",
+						"2",
+						"reviews",
+						"500"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "12. POST/ Borrow a Book",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:3000/books/1",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"books",
+						"1"
+					]
+				}
+			}
+		},
+		{
+			"name": "13. DELETE/ Return a Book",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:3000/books/1",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"books",
+						"1"
+					]
+				}
+			}
+		},
+		{
+			"name": "14. PUT/ Rate a Book",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"points\": \"4\"\r\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/books/1/rate",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"books",
+						"1",
+						"rate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "15. POST/ Login User",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": " {\r\n    \"username\": \"bobby\",\r\n    \"personalName\": \"Robert Timber\", \r\n   \"password\": \"wouldchucker\"\r\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/session",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"session"
+					]
+				}
+			}
+		},
+		{
+			"name": "16. DELETE/ Logout User",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:3000/session",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"session"
+					]
+				}
+			}
+		},
+		{
+			"name": "17. POST/ Create Book Review",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": " {\r\n    \"text\": \"TEST REVIEW\"\r\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/books/1/reviews",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"books",
+						"1",
+						"reviews"
+					]
+				}
+			}
+		},
+		{
+			"name": "18. GET/ All Reviews",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/reviews",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"reviews"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "19. GET/ Review By Id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/reviews/400",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"reviews",
+						"400"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "20. PUT/ Like Review",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"reactionType\": -1\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/reviews/400/votes",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"reviews",
+						"400",
+						"votes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "21. POST/ Create Book ",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": " {\r\n    \"name\": \"The Hunger Games\",\r\n    \"author\": \"Suzanne Collins\", \r\n   \"password\": \"wouldchucker\"\r\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/books",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"books"
+					]
+				}
+			}
+		},
+		{
+			"name": "22. PATCH/ Update Book ",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": " {\r\n    \"name\": \"THE SHINING\"\r\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/books/2",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"books",
+						"2"
+					]
+				}
+			}
+		},
+		{
+			"name": "23. DELETE/ Delete User",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:3000/users/1",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "24. POST/ Ban User ",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				], 
+				"body": {
+					"mode": "raw",
+					"raw": " {\r\n\t\"period\": 3600000\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/users/2/ban",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users",
+						"2",
+						"ban"
+					]
+				}
+			}
+		},
+		{
+			"name": "25. DELETE/ Delete Book",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:3000/books/2/admin",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"books",
+						"2",
+						"admin"
+						
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

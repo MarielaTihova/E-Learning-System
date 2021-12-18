@@ -1,0 +1,51 @@
+#review{
+   
+   /* margin-bottom: 10px;*/
+   display:grid;
+      grid-template-columns: repeat(auto-fill, 520px);
+    grid-column-gap: 10px;
+    grid-row-gap: 10px;
+    background-color: orchid;
+    border-radius: 5px;
+    margin: 80px 145px 20px 165px;
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left:5%;
+    background: linear-gradient(45deg,  #aa66cc,#ffffff);
+    opacity:0.6;
+    box-shadow:0  5px 10px  black;
+    
+}
+
+#user-rev{
+    text-align:center;
+    margin-top:20px;
+    font-size: 30px;
+  
+}
+
+.review-text{
+    color:#8B008B;
+    font-weight: bold;
+    font-style: italic;
+}
+
+#userDetails{
+    color:	#8B008B;
+    font-style: italic;
+    margin-left:90%;
+   font-weight: bold;
+}
+
+#userDetails img{
+    border:2px solid #8B008B;
+    margin-right:-50px;
+    border-radius:50%;
+    height:70px;
+    width:70px;
+}
+
+#userDetails p{
+    margin-right:-50px;
+}
