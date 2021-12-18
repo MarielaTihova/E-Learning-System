@@ -5,7 +5,6 @@ import { User } from "src/models/user.entity";
 import { InjectRepository } from "@nestjs/typeorm";
 import { TransformService } from "./transform.service";
 import { UserDTO } from "src/dtos/users/user.dto";
-import { ReviewDTO } from "src/dtos/reviews/review.dto";
 import { RegisterUserDTO } from "src/dtos/users/register-user.dto";
 import * as bcrypt from "bcrypt"
 
@@ -23,10 +22,10 @@ export class UsersService {
                 //name: "ASC",
                 id: "ASC"
             },
-            relations: ['booksBorrowed', 'bookVotes', 'bookRatings', 'bookRatings.madeBy',
-                'bookVotes.reviewVotedFor', 'bookRatings.bookName', 'bookRatings.bookName.name',
-                'bookReviews', 'bookReviews.madeBy', 'bookReviews.votes', 'bookReviews.votes.madeBy',
-                'booksBorrowedHistory', 'bookReviews.bookName']
+            // relations: ['booksBorrowed', 'bookVotes', 'bookRatings', 'bookRatings.madeBy',
+            //     'bookVotes.reviewVotedFor', 'bookRatings.bookName', 'bookRatings.bookName.name',
+            //     'bookReviews', 'bookReviews.madeBy', 'bookReviews.votes', 'bookReviews.votes.madeBy',
+            //     'booksBorrowedHistory', 'bookReviews.bookName']
         });
 
         return users.filter(user => user.isDeleted === false);
@@ -35,10 +34,10 @@ export class UsersService {
     async getUserById(id: number): Promise<User> {
         const user = await this.usersRepository.findOne(id, {
             where: { isDeleted: false },
-            relations: ['booksBorrowed', 'bookVotes', 'bookRatings', 'bookRatings.madeBy',
-                'bookVotes.reviewVotedFor', 'bookRatings.bookName',
-                'bookReviews', 'bookReviews.madeBy', 'bookReviews.votes', 'bookReviews.votes.madeBy',
-                'booksBorrowedHistory', 'bookReviews.bookName']
+            // relations: ['booksBorrowed', 'bookVotes', 'bookRatings', 'bookRatings.madeBy',
+            //     'bookVotes.reviewVotedFor', 'bookRatings.bookName',
+            //     'bookReviews', 'bookReviews.madeBy', 'bookReviews.votes', 'bookReviews.votes.madeBy',
+            //     'booksBorrowedHistory', 'bookReviews.bookName']
 
         });
         if (!user) {
@@ -63,43 +62,6 @@ export class UsersService {
         return this.transformer.toUserDTO(created);
     }
 
-
-
-    // public async readUserReviews(id: number): Promise<ReviewDTO[]> {
-    //     if (!this.usersRepository.find({ where: { id: id, isDeleted: false } })) {
-    //         throw new BadRequestException(`User with id ${id} does not exist!`);
-    //     }
-
-    //     const foundUser = await this.usersRepository.findOne({ id: id, isDeleted: false }, {
-    //         relations: ['booksBorrowed', 'bookVotes', 'bookRatings',
-    //             'bookVotes.reviewVotedFor', 'bookRatings.bookName',
-    //             'bookReviews', 'bookReviews.bookName', 'bookReviews.votes', 'bookReviews.votes.madeBy']
-    //     });
-    //     return foundUser.bookReviews.filter(rev => rev.isDeleted === false);
-    // }
-
-    // public async getUserReviewById(userId: number,
-    //     reviewId: number): Promise<ReviewDTO> {
-    //     if (!this.usersRepository.find({ where: { id: userId, isDeleted: false } })) {
-    //         throw new BadRequestException(`User with id ${userId} does not exist!`);
-    //     }
-    //     const userFound = await this.usersRepository.findOne({ id: userId, isDeleted: false }, {
-    //         relations: ['booksBorrowed', 'bookVotes', 'bookRatings',
-    //             'bookVotes.reviewVotedFor', 'bookRatings.bookName',
-    //             'bookReviews', 'bookReviews.votes', 'bookReviews.votes.madeBy', 'bookReviews.bookName']
-    //     });
-
-    //     if (userFound.bookReviews.length == 0) {
-    //         throw new BadRequestException(`The user with id: ${userFound.id} and username: ${userFound.username} has no reviews`);
-    //     }
-    //     if (!userFound.bookReviews.find(rev => rev.id === reviewId)) {
-    //         throw new BadRequestException(`No review with id: ${reviewId} for user with id: ${userId}`);
-    //     }
-
-    //     const reviewWanted = userFound.bookReviews.find(rev => rev.id === reviewId && rev.isDeleted === false);
-    //     return reviewWanted;
-    // }
-
     public async deleteUserById(
         userId: number): Promise<UserDTO> {
         const user = await this.getUserById(userId);
@@ -113,24 +75,4 @@ export class UsersService {
         user.banEndDate = new Date(Date.now() + period);
         return await this.usersRepository.save(user)
     }
-    // Work correct with both
-
-    // async banUser(userId: number, period: number) {
-    //     const user = await this.findOneOrFail(userId);
-
-    //     user.banEndDate = new Date(Date.now() + period);
-
-    //     return await this.usersRepository.save(user);
-    // }
-
-
-
-    // private async findOneOrFail(userId: number): Promise<User> {
-    //     const user = await this.usersRepository.findOne(userId);
-    //     if (!user) {
-    //         throw new Error('No user!')
-    //     }
-
-    //     return user;
-    // }
 }

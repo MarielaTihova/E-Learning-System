@@ -87,7 +87,6 @@ const SignIn = (props) => {
   const [user, setUserObject] = useState({
     username: '',
     password: '',
-    avatar: '',
   });
 
   const updateUser = (prop, value) => setUserObject({ ...user, [prop]: value });
@@ -127,7 +126,7 @@ const SignIn = (props) => {
         }
 
         localStorage.setItem('token', result.token);
-        history.push('/books');
+        history.push('/home');
       })
       .catch(alert); // (...rest) => alert(...rest);
   };
@@ -186,8 +185,7 @@ const SignIn = (props) => {
       },
       body: JSON.stringify({
         ...user,
-        personalName: user.username,
-        //  avatar: "https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2F1.bp.blogspot.com%2F-PYTTTc2bV3g%2FVpmwl5GBdRI%2FAAAAAAAAWsk%2FcmTOUZVVgXU%2Fs1600%2FClassDojo%252Bmonster%252B33.png&f=1&nofb=1"
+        personalName: user.username
       }),
     })
       .then(r => r.json())
@@ -257,15 +255,6 @@ const SignIn = (props) => {
                       icon="user"
                       type="text" id="input-username" placeholder="username" value={user.username} onChange={(e) => updateUser('username', e.target.value)}
                     />
-                    {!isLogin ?
-                      <MDBInput controlId="avatar"
-                        className="white-text"
-                        iconClass="white-text"
-                        label="Your avatar"
-                        icon="image"
-                        type="text" id="input-avatar" placeholder="avatar" value={user.avatar} onChange={(e) => updateUser('avatar', e.target.value)}
-
-                      /> : null}
                     <MDBInput controlId="password"
                       className="white-text"
                       iconClass="white-text"
@@ -316,7 +305,7 @@ const SignIn = (props) => {
               enim ad minim veniam, quis nostrud exercitation ullamco laboris
               nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
               reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+              nulla pariatur. Excepteur sint occaecat cupidatat noooksn proident,
               sunt in culpa qui officia deserunt mollit anim id est laborum.
             </p>
           </MDBCol>

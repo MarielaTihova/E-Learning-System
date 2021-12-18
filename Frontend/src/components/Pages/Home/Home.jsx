@@ -29,57 +29,8 @@ import MultiCarouselPage from '../../Base/Carousel/Carousel';
 
 const Home = () => {
 
-  //   const [collapseID, setCollapseID] = useState(false);
-
   const userContext = useContext(UserContext);
   const loggedUser = userContext.user;
-
-
-  //   // handleTogglerClick = () => {
-  //   //   const { collapsed } = this.state;
-  //   //   this.setState({
-  //   //     collapsed: !collapsed
-  //   //   });
-  //   // };
-
-  //   useEffect(() => {
-  //     document.querySelector("nav").style.height = "65px";
-  //     return () => {
-  //       document.querySelector("nav").style.height = "auto";
-  //     };
-  //   }, []);
-  // //  const navStyle = (
-
-  // //  <div 
-  // //  navStyle={{ marginTop: '4rem' }}
-  // //   />
-  // //  )
-  //   const overlay = (
-
-  //     <div
-  //       id="sidenav-overlay"
-  //       role="presentation"
-  //       // navStyle={{ marginTop: '4rem' }}
-  //       style={{ backgroundColor: "transparent" }}
-  //       onClick={() => handleTogglerClick("handleTogglerClick")}
-  //     />
-  //   );
-
-  //   // render() {
-  //   //   const { collapsed } = this.state;
-  //   //   const navStyle = { marginTop: '4rem' };
-  //   //   const overlay = (
-  //   //     <div
-  //   //       id='sidenav-overlay'
-  //   //       style={{ backgroundColor: 'transparent' }}
-  //   //       onClick={this.handleTogglerClick}
-  //   //     />
-
-  //       const handleTogglerClick = () => {
-  //         setCollapseID(
-  //           collapseID !== collapseID
-  //         )
-  //       }
 
   return (
     <div id='caltoaction'>

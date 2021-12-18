@@ -14,6 +14,4 @@ export class RegisterUserDTO {
     })
 
     password: string;
-    @IsString()
-    avatar: string;
 }

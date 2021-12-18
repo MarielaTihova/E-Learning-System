@@ -1,9 +1,5 @@
 import { UserRole } from './enums/user-role';
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany, CreateDateColumn, ManyToMany } from "typeorm";
-import { Book } from "./book.entity";
-import { ReviewReaction } from "./review-reaction.entity";
-import { Rating } from "./rating.entity";
-import { Review } from "./review.entity";
 
 @Entity('users')
 export class User {
@@ -46,8 +42,4 @@ export class User {
 
     @Column({ nullable: true })
     banEndDate: Date;
-
-    //@Column({ default: "https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2F2.bp.blogspot.com%2F-kaQX-JRUirM%2FVajwSpRbPEI%2FAAAAAAAAYGU%2F2SINxtyiZrQ%2Fs1600%2FClassDojo%252Bmonster%252B21.png&f=1&nofb=1" })
-    @Column()
-    avatar: string;
 }

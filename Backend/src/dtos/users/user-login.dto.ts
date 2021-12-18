@@ -7,7 +7,4 @@ export class UserLoginDTO {
   @IsString()
   @IsNotEmpty()
   password: string;
-  @IsString()
-  @IsNotEmpty()
-  avatar: string;
 }

@@ -122,10 +122,6 @@ const NavBar = (props) => {
             {loggedUser ?
               <MDBNavItem>
                 <MDBDropdown>
-                  <MDBDropdownToggle className="dopdown-toggle" nav>
-                    <img src={loggedUser.avatar} className="rounded-circle z-depth-0"
-                      style={{ height: "45px", padding: "0px", marginBottom: "20px", }} alt="" />
-                  </MDBDropdownToggle>
                   <MDBDropdownMenu className="dropdown-default" right>
                     <MDBDropdownItem href="/profile">My account</MDBDropdownItem>
                     <MDBDropdownItem href="/logout">Log out</MDBDropdownItem>

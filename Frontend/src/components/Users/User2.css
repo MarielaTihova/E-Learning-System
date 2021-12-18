@@ -5,8 +5,8 @@
   grid-template-columns: 300px 300px 300px;
   grid-gap: 50px;
   justify-content: center;
-  align-items: center; 
- 
+  align-items: center;
+
   background-color: #f5f5f5;*/
   font-family: 'Baloo Paaji 2', cursive;
 
@@ -17,9 +17,9 @@
     box-shadow:0  5px 10px  black;
   background-color: white;
   height: 37rem;
-  width:50rem;
+  width:30rem;
   margin-top:10%;
-  margin-left:25%;
+  margin-left:35%;
   margin-bottom:7%;
   border-radius: 5px;
   display: flex;
@@ -27,6 +27,10 @@
   align-items: center;
   box-shadow: rgba(0, 0, 0, 0.7);
   color: black;
+}
+
+.container1 .card1 .card2 {
+ padding: 20px;
 }
 
 .card__name {
@@ -176,9 +180,10 @@
   transition: all 265ms ease-in;
 }
 
-/* .grid-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-gap: 20px;
-  font-size: 1.2em;
-} */
+.element {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 300px;
+}

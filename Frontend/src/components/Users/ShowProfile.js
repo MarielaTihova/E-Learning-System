@@ -1,34 +1,26 @@
 import React, { useState, useEffect, useContext } from 'react';
-import PropTypes from 'prop-types';
 import { BASE_URL } from '../../common/constants';
 import UserContext from '../../providers/UserContext';
-import Rating from '../Books/Ratings/Rating';
 import './User2.css';
-import Book from '../Books/Book/Book';
 import User2 from './User2';
-import Review from '../Books/Reviews/Review';
 import "./ShowProfile.css"
 
 
 const ShowProfile = (props) => {
     const id = props.match.params['id'];
     const path = props.location.pathname;
-    console.log("props", props);
     const [appUser, setUser] = useState({
         id: 1,
         username: "",
         personalName: "",
-        // bookRatings: [],
-        // bookReviews: [],
-        avatar: "",
-        // booksBorrowed: [],
-        // booksBorrowedHistory: [],
     });
 
 
 
     const userContext = useContext(UserContext);
     const loggedUser = userContext.user;
+
+    console.log(loggedUser, "loggedUser");
 
     useEffect(() => {
 

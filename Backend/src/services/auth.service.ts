@@ -23,7 +23,7 @@ export class AuthService {
         username,
         isDeleted: false,
       },
-      relations: ['booksBorrowed', 'bookReviews', 'booksBorrowedHistory']
+      // relations: ['booksBorrowed', 'bookReviews', 'booksBorrowedHistory']
     });
   }
 
@@ -65,7 +65,6 @@ export class AuthService {
       username: user.username,
       personalName: user.personalName,
       role: UserRole[user.role],
-      avatar: user.avatar,
       registerDate: user.registerDate
     }
 

@@ -2,13 +2,10 @@ import React, { useState } from "react";
 import { BrowserRouter, Switch, Redirect, Route } from "react-router-dom";
 import Home from "./components/Pages/Home/Home";
 import NotFound from "./components/Pages/NotFound/NotFound";
-import AllBooks from "./components/Books/AllBooks/AllBooks";
 import SignIn from "./components/Pages/SignIn/SignIn2/SignIn2";
 import UserContext, { getLoggedUser } from "./providers/UserContext";
 import ShowProfile from "./components/Users/ShowProfile";
 import "./theme.css"
-import AllReviews from "./components/Books/Reviews/AllReviews";
-import CreateReview from "./components/Books/Reviews/CreateReview";
 import Footer from "./components/Base/Footer";
 import NavBar from "./components/Base/NavBar/NavBar";
 
@@ -33,9 +30,6 @@ const App = () => {
             <Route path="/login" exact component={SignIn} />
             <Route path="/register" exact component={SignIn} />
             <Route path="/logout" exact component={SignIn} />
-            <Route path="/books" exact component={AllBooks} />
-            <Route path="/books/:id/reviews" exact component={AllReviews} />
-            <Route path="/books/:id/reviews/create" exact component={CreateReview} />
             <Route path="*" component={NotFound} />
           </Switch>
         </UserContext.Provider>
