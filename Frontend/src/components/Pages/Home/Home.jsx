@@ -24,7 +24,6 @@ import {
 } from 'mdbreact';
 import './Home.css';
 import UserContext from '../../../providers/UserContext';
-import AllBooks from '../../Books/AllBooks/AllBooks';
 import MultiCarouselPage from '../../Base/Carousel/Carousel';
 
 const Home = () => {
@@ -69,7 +68,7 @@ const Home = () => {
             </a>
           </MDBContainer>
         </MDBView>
-        : <AllBooks />}
+        : null}
 
       {!loggedUser ?
         <div id="carousel">
