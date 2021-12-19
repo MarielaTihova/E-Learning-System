@@ -1,8 +1,11 @@
 import { UserRole } from './enums/user-role';
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany, CreateDateColumn, ManyToMany } from "typeorm";
+import { Course } from './course.entity';
 
 @Entity('users')
 export class User {
+
+    // Basic
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -16,25 +19,10 @@ export class User {
     password: string;
 
     @CreateDateColumn()
-    registerDate: Date  // date of registering
-
-    // @OneToMany(() => Book, book => book.borrower)
-    // booksBorrowed: Book[]
-
-    // @OneToMany(() => ReviewReaction, reaction => reaction.madeBy)
-    // bookVotes: ReviewReaction[];
-
-    // @OneToMany(() => Rating, rating => rating.madeBy)
-    // bookRatings: Rating[];
-
-    // @OneToMany(() => Review, review => review.madeBy)
-    // bookReviews: Review[];
+    registerDate: Date;
 
     @Column({ default: false })
     isDeleted: boolean;
-
-    // @ManyToMany(() => Book, book => book.wasBorrowedBy)
-    // booksBorrowedHistory: Book[];
 
     @Column({ type: 'enum', enum: UserRole, default: UserRole.Student })
 
@@ -42,4 +30,8 @@ export class User {
 
     @Column({ nullable: true })
     banEndDate: Date;
+
+    // Relations
+    @ManyToMany(() => Course, course => course.participants)
+    courses: Course[];
 }

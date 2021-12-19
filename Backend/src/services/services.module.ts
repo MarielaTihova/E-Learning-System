@@ -5,21 +5,24 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { TransformService } from './transform.service';
 import { User } from 'src/models/user.entity';
 import { UsersService } from './users.service';
-import {PassportModule} from '@nestjs/passport'
-import {JwtModule} from '@nestjs/jwt'
+import { PassportModule } from '@nestjs/passport'
+import { JwtModule } from '@nestjs/jwt'
 import { jwtConstants } from 'src/constant/secret';
 import { AuthService } from './auth.service';
+import { CoursesService } from './courses.service';
+import { Course } from 'src/models/course.entity';
+import { CourseSchedule } from 'src/models/course-schedule.entity';
 
 @Module({
-    imports: [TypeOrmModule.forFeature([User, Token]),
+  imports: [TypeOrmModule.forFeature([User, Token, Course, CourseSchedule]),
     PassportModule,
-    JwtModule.register({
-      secret: jwtConstants.secret,
-      signOptions: {
-        expiresIn: '7d',
-      }
-    }),],
-    providers: [UsersService, TransformService,  AuthService, JwtStrategy],
-    exports: [UsersService, TransformService, AuthService] // AuthService
+  JwtModule.register({
+    secret: jwtConstants.secret,
+    signOptions: {
+      expiresIn: '7d',
+    }
+  }),],
+  providers: [UsersService, TransformService, AuthService, JwtStrategy, CoursesService],
+  exports: [UsersService, TransformService, AuthService, CoursesService]
 })
 export class ServicesModule { }

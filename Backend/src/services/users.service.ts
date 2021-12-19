@@ -7,6 +7,7 @@ import { TransformService } from "./transform.service";
 import { UserDTO } from "src/dtos/users/user.dto";
 import { RegisterUserDTO } from "src/dtos/users/register-user.dto";
 import * as bcrypt from "bcrypt"
+import { UserRole } from 'src/models/enums/user-role';
 
 @Injectable()
 export class UsersService {
@@ -46,6 +47,12 @@ export class UsersService {
         return user;
     }
 
+    async assignRoleToUser(userId: number, role: UserRole): Promise<UserDTO> {
+        const user: User = await this.usersRepository.findOne({ id: userId });
+        user.role = role;
+        const updatedUser: User = await this.usersRepository.save(user);
+        return updatedUser;
+    }
     async registerUser(userDto: RegisterUserDTO): Promise<UserDTO> {
         const existingUsername = await this.usersRepository.findOne({ where: { username: userDto.username } });
         if (existingUsername !== undefined) {
