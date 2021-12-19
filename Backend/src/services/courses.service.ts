@@ -11,6 +11,7 @@ import { UsersService } from './users.service';
 export class CoursesService {
     constructor(
         @InjectRepository(Course) private readonly coursesRepository: Repository<Course>,
+        @InjectRepository(User) private readonly usersRepository: Repository<User>,
         // @InjectRepository(CourseSchedule) private readonly courseScheduleRepository: Repository<CourseSchedule>,
         private readonly usersService: UsersService
     ) { }
@@ -47,4 +48,19 @@ export class CoursesService {
         return this.coursesRepository.save(courseCreatedDbRecord);
 
     }
+
+    // add user to course
+    async enrollStudentInCourse(courseId: number, studentId: number): Promise<Course> {
+        const course: Course = await this.coursesRepository.findOne({
+            where: { id: courseId },
+            relations: ['participants']
+        });
+        const student: User = await this.usersService.getUserById(studentId);
+
+        course.participants.push(student);
+        await this.usersService.addCourseToUser(studentId, course);
+
+        return await this.coursesRepository.save(course);
+    }
+
 }
