@@ -17,7 +17,8 @@
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
-    "react-toastify": "^6.0.8"
+    "react-toastify": "^6.0.8",
+    "sass": "^1.45.0"
   },
   "scripts": {
     "start": "set PORT=4000 && react-scripts start",

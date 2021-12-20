@@ -8,6 +8,7 @@ import ShowProfile from "./components/Users/ShowProfile";
 import "./theme.css"
 import Footer from "./components/Base/Footer";
 import NavBar from "./components/Base/NavBar/NavBar";
+import AllCourses from "./components/Courses/AllCourses/AllCourses";
 
 
 const App = () => {
@@ -30,11 +31,12 @@ const App = () => {
             <Route path="/login" exact component={SignIn} />
             <Route path="/register" exact component={SignIn} />
             <Route path="/logout" exact component={SignIn} />
+            <Route path="/courses" exact component={AllCourses} />
             <Route path="*" component={NotFound} />
           </Switch>
         </UserContext.Provider>
       </BrowserRouter>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };

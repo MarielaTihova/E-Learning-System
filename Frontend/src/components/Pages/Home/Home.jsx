@@ -30,7 +30,7 @@ const Home = () => {
 
   const userContext = useContext(UserContext);
   const loggedUser = userContext.user;
-
+  console.log('logged user', loggedUser);
   return (
     <div id='caltoaction'>
 
@@ -48,20 +48,20 @@ const Home = () => {
                 <MDBCol md='12' className='mb-4 text-center'>
                   <h1 className='display-4 font-weight-bold mb-0 pt-md-5 pt-5'>
                     Welcome to Telerik Library
-                </h1>
+                  </h1>
                   <h5 className='pt-md-5 pt-sm-2 pt-5 pb-md-5 pb-sm-3 pb-5'>
                     It comes with a lot of fasinating books for you to borrow. We are trying to make your choice easier by letting you see reviews by other readers.
                     We hope you enjoy it! Happy reading!
-                </h5>
+                  </h5>
                   <MDBBtn href='/register' rounded className='btn-purple'>
                     <MDBIcon icon='user' className='mr-2' /> Sign up!
-                  {/* <MDBNavLink to='/register' icon='user' className='mr-2'>Sign up!</MDBNavLink> */}
+                    {/* <MDBNavLink to='/register' icon='user' className='mr-2'>Sign up!</MDBNavLink> */}
                   </MDBBtn>
                   <a href="#sec1" className="link">
                     <MDBBtn outline color='purple' rounded>
 
                       <MDBIcon icon='book' className='mr-2' /> Preview
-                  </MDBBtn>
+                    </MDBBtn>
                   </a>
                 </MDBCol>
               </MDBRow>
@@ -77,10 +77,17 @@ const Home = () => {
           <a href="#sec2" className="link" id="letsgoBtn">
             <MDBBtn rounded className='btn-purple'>
               <MDBIcon icon='user' className='mr-2' /> Let's go!
-            {/* <MDBNavLink to='/register' icon='user' className='mr-2'>Sign up!</MDBNavLink> */}
+              {/* <MDBNavLink to='/register' icon='user' className='mr-2'>Sign up!</MDBNavLink> */}
             </MDBBtn></a>
         </div>
-        : null}
+        :
+        <div>
+          <p>Home Page for {loggedUser.username}</p>
+          <p> MIMI</p>
+          <p> MIMI</p>
+          <p> MIMI</p>
+          <p> MIMI</p>
+        </div>}
     </div >
 
   );

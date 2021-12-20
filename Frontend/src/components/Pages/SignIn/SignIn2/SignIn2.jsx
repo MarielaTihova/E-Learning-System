@@ -265,10 +265,10 @@ const SignIn = (props) => {
 
                     <div className="text-center mt-4 black-text">
                       {isLogin
-                        ? <div> <MDBBtn rounded className='btn-purple' onClick={login}>Login</MDBBtn>
+                        ? <div> <MDBBtn rounded className='btn-default' onClick={login}>Login</MDBBtn>
                           <MDBBtn outline color='white' rounded onClick={() => history.goBack()}>Go back</MDBBtn>
                         </div>
-                        : <MDBBtn rounded className='btn-purple' onClick={register}>Register</MDBBtn>}
+                        : <MDBBtn rounded className='btn-default' onClick={register}>Register</MDBBtn>}
                       {!isLogin ? <MDBBtn outline color='white' rounded onClick={() => { history.push('/login') }}>Have an account? Login</MDBBtn> : null}
                       {/* <MDBBtn color="indigo">Sign Up</MDBBtn> */}
                       <hr className="hr-light" />
