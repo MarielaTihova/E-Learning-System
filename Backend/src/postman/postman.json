@@ -1,351 +1,23 @@
 {
 	"info": {
-		"_postman_id": "88a386d1-f992-490e-81ce-7838cc3c2d6c",
-		"name": "3. TEAM 11 (DM)- Backend Project",
+		"_postman_id": "5fc51d70-50d8-400a-81f8-d9f5950afbd1",
+		"name": "E_Learning_System",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "1.GET/ All Books",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "localhost:3000/books",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"books"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "2. GET/ Book By Id",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "localhost:3000/books/2",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"books",
-						"2"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "3. GET/ All Users",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "localhost:3000/users",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"users"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "4. GET/ User By Id",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "localhost:3000/users/1",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"users",
-						"1"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "5. POST/ Register User",
+			"name": "Register",
 			"request": {
 				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
+				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": " {\r\n    \"username\": \"george\",\r\n    \"personalName\": \"TestTest\", \r\n   \"password\": \"HashMyPassword\"\r\n}"
-				},
-				"url": {
-					"raw": "localhost:3000/users",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"users"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "6. GET/ User Reviews",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "localhost:3000/users/3/reviews/",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"users",
-						"3",
-						"reviews"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "7. GET/ User Review By Id",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "localhost:3000/users/3/reviews/400",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"users",
-						"3",
-						"reviews",
-						"400"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "8. GET/ Book Reviews",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "localhost:3000/books/1/reviews",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"books",
-						"1",
-						"reviews"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "9. GET/ Book Review By Id",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "localhost:3000/books/1/reviews/200",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"books",
-						"1",
-						"reviews",
-						"200"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "10. PUT/ Update Book Review",
-			"request": {
-				"method": "PUT",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
+					"raw": "{\r\n    \"username\": \"admin2\",\r\n    \"password\": \"admin\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
 					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n\t\"text\": \"BRILLIANT book!\"\r\n}"
-				},
-				"url": {
-					"raw": "localhost:3000/books/1/reviews/200",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"books",
-						"1",
-						"reviews",
-						"200"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "11. DELETE/ Delete Book Review",
-			"request": {
-				"method": "DELETE",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"url": {
-					"raw": "localhost:3000/books/2/reviews/500",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"books",
-						"2",
-						"reviews",
-						"500"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "12. POST/ Borrow a Book",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"url": {
-					"raw": "localhost:3000/books/1",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"books",
-						"1"
-					]
-				}
-			}
-		},
-		{
-			"name": "13. DELETE/ Return a Book",
-			"request": {
-				"method": "DELETE",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"url": {
-					"raw": "localhost:3000/books/1",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"books",
-						"1"
-					]
-				}
-			}
-		},
-		{
-			"name": "14. PUT/ Rate a Book",
-			"request": {
-				"method": "PUT",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n\t\"points\": \"4\"\r\n}"
-				},
-				"url": {
-					"raw": "localhost:3000/books/1/rate",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"books",
-						"1",
-						"rate"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "15. POST/ Login User",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": " {\r\n    \"username\": \"bobby\",\r\n    \"personalName\": \"Robert Timber\", \r\n   \"password\": \"wouldchucker\"\r\n}"
 				},
 				"url": {
 					"raw": "localhost:3000/session",
@@ -357,20 +29,23 @@
 						"session"
 					]
 				}
-			}
+			},
+			"response": []
 		},
 		{
-			"name": "16. DELETE/ Logout User",
+			"name": "Login",
 			"request": {
-				"method": "DELETE",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"admin\",\r\n    \"password\": \"admin\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
 					}
-				],
+				},
 				"url": {
 					"raw": "localhost:3000/session",
 					"host": [
@@ -381,242 +56,190 @@
 						"session"
 					]
 				}
-			}
+			},
+			"response": []
 		},
 		{
-			"name": "17. POST/ Create Book Review",
+			"name": "Create Course",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJ0ZWFjaGVyMSIsInBlcnNvbmFsTmFtZSI6IlRlYWNoZXIgVXNlciIsInJvbGUiOiJTdHVkZW50IiwicmVnaXN0ZXJEYXRlIjoiMjAyMS0xMi0xOVQxNzoxMTozMi43MTZaIiwiaWF0IjoxNjM5OTM0MDA3LCJleHAiOjE2NDA1Mzg4MDd9.aXvWJuzhqnG3aJBf8ai8tk_YKtqtZOt8V-RbZcAdpb4",
+							"type": "string"
+						}
+					]
+				},
 				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
+				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": " {\r\n    \"text\": \"TEST REVIEW\"\r\n}"
+					"raw": "{\r\n    \"name\": \"Test Course\",\r\n    \"description\": \"Test\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
 				},
 				"url": {
-					"raw": "localhost:3000/books/1/reviews",
+					"raw": "localhost:3000/courses",
 					"host": [
 						"localhost"
 					],
 					"port": "3000",
 					"path": [
-						"books",
-						"1",
-						"reviews"
-					]
-				}
-			}
-		},
-		{
-			"name": "18. GET/ All Reviews",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "localhost:3000/reviews",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"reviews"
+						"courses"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "19. GET/ Review By Id",
+			"name": "Get All Courses",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJ0ZWFjaGVyMSIsInBlcnNvbmFsTmFtZSI6IlRlYWNoZXIgVXNlciIsInJvbGUiOiJTdHVkZW50IiwicmVnaXN0ZXJEYXRlIjoiMjAyMS0xMi0xOVQxNzoxMTozMi43MTZaIiwiaWF0IjoxNjM5OTM0MDA3LCJleHAiOjE2NDA1Mzg4MDd9.aXvWJuzhqnG3aJBf8ai8tk_YKtqtZOt8V-RbZcAdpb4",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:3000/reviews/400",
+					"raw": "localhost:3000/courses",
 					"host": [
 						"localhost"
 					],
 					"port": "3000",
 					"path": [
-						"reviews",
-						"400"
+						"courses"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "20. PUT/ Like Review",
+			"name": "Get Course by Id",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwidXNlcm5hbWUiOiJiYXNpY19zdHVkZW50IiwicGVyc29uYWxOYW1lIjoiSmVycnkgSiIsInJvbGUiOiJTdHVkZW50IiwicmVnaXN0ZXJEYXRlIjoiMjAyMS0xMi0xOVQyMTozMzo1NC44NDRaIiwiaWF0IjoxNjM5OTQ5NjQ4LCJleHAiOjE2NDA1NTQ0NDh9.95SxPHcm6t9YzN2ev_xLKZG8zQdVp996dGdLRCoEyFk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/courses/5",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"courses",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Assing Role to User",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbWUiOiJ0ZWFjaGVyMiIsInBlcnNvbmFsTmFtZSI6IlRlYWNoZXIgVXNlciAyIiwicm9sZSI6IlN0dWRlbnQiLCJyZWdpc3RlckRhdGUiOiIyMDIxLTEyLTE5VDE3OjUzOjEzLjA2NloiLCJpYXQiOjE2Mzk5MzY0MDQsImV4cCI6MTY0MDU0MTIwNH0.jFq80xb5GBWiupFOgBGj56GVO0yuBNEEFXp9XJ8Xi-8",
+							"type": "string"
+						}
+					]
+				},
 				"method": "PUT",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n\t\"reactionType\": -1\n}"
-				},
+				"header": [],
 				"url": {
-					"raw": "localhost:3000/reviews/400/votes",
+					"raw": "localhost:3000/users/4/roles/2",
 					"host": [
 						"localhost"
 					],
 					"port": "3000",
 					"path": [
-						"reviews",
-						"400",
-						"votes"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "21. POST/ Create Book ",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": " {\r\n    \"name\": \"The Hunger Games\",\r\n    \"author\": \"Suzanne Collins\", \r\n   \"password\": \"wouldchucker\"\r\n}"
-				},
-				"url": {
-					"raw": "localhost:3000/books",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"books"
-					]
-				}
-			}
-		},
-		{
-			"name": "22. PATCH/ Update Book ",
-			"request": {
-				"method": "PATCH",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": " {\r\n    \"name\": \"THE SHINING\"\r\n}"
-				},
-				"url": {
-					"raw": "localhost:3000/books/2",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"books",
+						"users",
+						"4",
+						"roles",
 						"2"
 					]
 				}
-			}
+			},
+			"response": []
 		},
 		{
-			"name": "23. DELETE/ Delete User",
+			"name": "Get All Users",
 			"request": {
-				"method": "DELETE",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
+				"method": "GET",
+				"header": [],
 				"url": {
-					"raw": "localhost:3000/users/1",
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Enroll Myself in Course",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbWUiOiJ0ZWFjaGVyMiIsInBlcnNvbmFsTmFtZSI6IlRlYWNoZXIgVXNlciAyIiwicm9sZSI6IlRlYWNoZXIiLCJyZWdpc3RlckRhdGUiOiIyMDIxLTEyLTE5VDE3OjUzOjEzLjA2NloiLCJpYXQiOjE2Mzk5NTE2NzAsImV4cCI6MTY0MDU1NjQ3MH0.oDtUIQlXn1cYTgFtVdERNt8bJ3R6vVxnvtYpk9VFOOI",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/courses/5",
 					"host": [
 						"localhost"
 					],
 					"port": "3000",
 					"path": [
-						"users",
-						"1"
+						"courses",
+						"5"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "24. POST/ Ban User ",
+			"name": "Enroll Student in Course",
 			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				], 
-				"body": {
-					"mode": "raw",
-					"raw": " {\r\n\t\"period\": 3600000\n}"
-				},
+				"method": "PUT",
+				"header": [],
 				"url": {
-					"raw": "localhost:3000/users/2/ban",
+					"raw": "localhost:3000/courses/5/students/5",
 					"host": [
 						"localhost"
 					],
 					"port": "3000",
 					"path": [
-						"users",
-						"2",
-						"ban"
-					]
-				}
-			}
-		},
-		{
-			"name": "25. DELETE/ Delete Book",
-			"request": {
-				"method": "DELETE",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"url": {
-					"raw": "localhost:3000/books/2/admin",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"books",
-						"2",
-						"admin"
-						
+						"courses",
+						"5",
+						"students",
+						"5"
 					]
 				}
 			},
