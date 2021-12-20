@@ -35,7 +35,7 @@ const Home = () => {
     <div id='caltoaction'>
 
       {!loggedUser ?
-        <MDBView src='https://mdbootstrap.com/img/Photos/Others/gradient2.png'>
+        <MDBView src='  https://mdbootstrap.com/img/Photos/Others/gradient3.png'>
           {/* <MDBView src='http://mdbootstrap.com/img/Photos/Others/images/91.jpg'> */}
           <MDBMask className='rgba-purple-slight ' />
           <MDBContainer
@@ -47,47 +47,36 @@ const Home = () => {
               <MDBRow>
                 <MDBCol md='12' className='mb-4 text-center'>
                   <h1 className='display-4 font-weight-bold mb-0 pt-md-5 pt-5'>
-                    Welcome to Telerik Library
+                    Welcome to E-learning system
                   </h1>
                   <h5 className='pt-md-5 pt-sm-2 pt-5 pb-md-5 pb-sm-3 pb-5'>
-                    It comes with a lot of fasinating books for you to borrow. We are trying to make your choice easier by letting you see reviews by other readers.
-                    We hope you enjoy it! Happy reading!
+                  Learning is not attained by chance, it must be sought for with ardor and attended to with diligence.
                   </h5>
-                  <MDBBtn href='/register' rounded className='btn-purple'>
-                    <MDBIcon icon='user' className='mr-2' /> Sign up!
+                  <MDBBtn href='/register?role=3' rounded className='btn-purple'>
+                    <MDBIcon icon='user' className='mr-2' /> Sign up as teacher!
                     {/* <MDBNavLink to='/register' icon='user' className='mr-2'>Sign up!</MDBNavLink> */}
                   </MDBBtn>
-                  <a href="#sec1" className="link">
-                    <MDBBtn outline color='purple' rounded>
+                  <MDBBtn href='/register?role=1' rounded className='btn-purple'>
+                  <MDBIcon icon='user' className='mr-2' /> Sign up as student!
+                  {/* <MDBNavLink to='/register' icon='user' className='mr-2'>Sign up!</MDBNavLink> */}
+                </MDBBtn>
 
-                      <MDBIcon icon='book' className='mr-2' /> Preview
-                    </MDBBtn>
-                  </a>
                 </MDBCol>
               </MDBRow>
             </a>
           </MDBContainer>
         </MDBView>
-        : null}
-
-      {!loggedUser ?
-        <div id="carousel">
-          <a name="sec1">
-            <MultiCarouselPage /></a>
-          <a href="#sec2" className="link" id="letsgoBtn">
-            <MDBBtn rounded className='btn-purple'>
-              <MDBIcon icon='user' className='mr-2' /> Let's go!
-              {/* <MDBNavLink to='/register' icon='user' className='mr-2'>Sign up!</MDBNavLink> */}
-            </MDBBtn></a>
+        :  <div>
+            <p>Home Page for {loggedUser.username}</p>
+            <p> MIMI</p>
+            <p> MIMI</p>
+            <p> MIMI</p>
+            <p> MIMI</p>
         </div>
-        :
-        <div>
-          <p>Home Page for {loggedUser.username}</p>
-          <p> MIMI</p>
-          <p> MIMI</p>
-          <p> MIMI</p>
-          <p> MIMI</p>
-        </div>}
+    }
+
+
+
     </div >
 
   );

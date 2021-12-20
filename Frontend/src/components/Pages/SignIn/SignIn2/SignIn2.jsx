@@ -1,4 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
+import queryString, { ParsedQuery, StringifyOptions } from 'query-string';
+import _ from "lodash";
+import { useLocation } from "react-router";
 import { BrowserRouter as Router } from "react-router-dom";
 import UserContext from '../../../../providers/UserContext';
 import jwtDecode from 'jwt-decode';
@@ -38,9 +41,13 @@ import { BASE_URL } from "../../../../common/constants";
 
 const SignIn = (props) => {
   const history = props.history;
-  const location = props.location;
+  const location = useLocation();
+
   const [collapseID, setCollapseID] = useState(false);
-  //   const [searching, setSearching] = useState("Harry");
+
+  const queryParams = queryString.parse(location.search);
+
+  const userRole = _.get(queryParams, 'role');
 
   const userContext = useContext(UserContext);
   const loggedUser = userContext.user;
@@ -185,7 +192,8 @@ const SignIn = (props) => {
       },
       body: JSON.stringify({
         ...user,
-        personalName: user.username
+        personalName: user.username,
+        role: Number(userRole)
       }),
     })
       .then(r => r.json())

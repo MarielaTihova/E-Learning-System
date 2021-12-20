@@ -70,7 +70,7 @@ const NavBar = (props) => {
         fixed='top'
         scrolling
       >
-        <MDBContainer>
+        <MDBContainer className='container'>
           <img height="75px" padding="0px" margin="0px" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.freeiconspng.com%2Fuploads%2Fowl-icon-20.png&f=1&nofb=1"></img>
           <MDBNavbarBrand>
             <MDBNavLink to='/home' style={{ color: "black", marginTop: "10px" }}>
@@ -81,9 +81,12 @@ const NavBar = (props) => {
           <MDBNavbarToggler onClick={() => handleTogglerClick()} />
           <MDBCollapse isOpen={collapseID} navbar>
             <MDBNavbarNav left>
-              <MDBNavItem active>
+              {loggedUser && <MDBNavItem active>
                 <MDBNavLink to='/home'>Home</MDBNavLink>
-              </MDBNavItem>
+              </MDBNavItem>}
+              {!loggedUser &&  <MDBBtn href='/login' rounded className='login btn-purple'>
+                Login
+            </MDBBtn>}
               {loggedUser !== null ?
                 <MDBNavItem>
                   <MDBNavLink to='/profile'>Profile</MDBNavLink>
