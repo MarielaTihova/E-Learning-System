@@ -64,19 +64,18 @@ const NavBar = (props) => {
   return (
     <div id='caltoaction'>
       <MDBNavbar
-        color='secondary-color'
+        color='default-color'
         light
         expand='md'
         fixed='top'
         scrolling
-        transparent
       >
         <MDBContainer>
           <img height="75px" padding="0px" margin="0px" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.freeiconspng.com%2Fuploads%2Fowl-icon-20.png&f=1&nofb=1"></img>
           <MDBNavbarBrand>
             <MDBNavLink to='/home' style={{ color: "black", marginTop: "10px" }}>
 
-              <strong className="text-telerik">Telerik Library</strong>
+              <strong className="text-telerik">E-Learn</strong>
             </MDBNavLink>
           </MDBNavbarBrand>
           <MDBNavbarToggler onClick={() => handleTogglerClick()} />
@@ -90,7 +89,11 @@ const NavBar = (props) => {
                   <MDBNavLink to='/profile'>Profile</MDBNavLink>
                 </MDBNavItem>
                 : null}
-
+              {loggedUser !== null ?
+                <MDBNavItem>
+                  <MDBNavLink to='/courses'>Courses</MDBNavLink>
+                </MDBNavItem>
+                : null}
             </MDBNavbarNav>
             {loggedUser !== null ?
 

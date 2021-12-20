@@ -7,21 +7,39 @@ import { TransformService } from "./transform.service";
 import { UserDTO } from "src/dtos/users/user.dto";
 import { RegisterUserDTO } from "src/dtos/users/register-user.dto";
 import * as bcrypt from "bcrypt"
+import { UserRole } from 'src/models/enums/user-role';
+import { CoursesService } from './courses.service';
+import { Course } from 'src/models/course.entity';
 
 @Injectable()
 export class UsersService {
     constructor(
         private readonly transformer: TransformService,
-        @InjectRepository(User) private readonly usersRepository: Repository<User>
+        @InjectRepository(User) private readonly usersRepository: Repository<User>,
+        // private readonly coursesService: CoursesService
     ) { }
 
-    async getAllUsers(): Promise<UserDTO[]> {
-        const users = await this.usersRepository.find({
-            where: { isDeleted: false },
+    async getAllUsers(role?: UserRole): Promise<UserDTO[]> {
+        // By setting a role query parameter, we can get all users of a certain type
+        // (without having to create a separate method)
+        // Students -> role = 1
+        // Admins -> role = 2
+        // Teachers -> role = 3
+        const whereClauseQueryParam: Partial<User> = {
+            isDeleted: false,
+            role: role,
+        };
+        const whereClauseNoQueryParam: Partial<User> = {
+            isDeleted: false
+        };
+
+        const users: User[] = await this.usersRepository.find({
+            where: role ? whereClauseQueryParam : whereClauseNoQueryParam,
             order: {
                 //name: "ASC",
                 id: "ASC"
             },
+            relations: ['courses']
             // relations: ['booksBorrowed', 'bookVotes', 'bookRatings', 'bookRatings.madeBy',
             //     'bookVotes.reviewVotedFor', 'bookRatings.bookName', 'bookRatings.bookName.name',
             //     'bookReviews', 'bookReviews.madeBy', 'bookReviews.votes', 'bookReviews.votes.madeBy',
@@ -34,6 +52,7 @@ export class UsersService {
     async getUserById(id: number): Promise<User> {
         const user = await this.usersRepository.findOne(id, {
             where: { isDeleted: false },
+            relations: ['courses']
             // relations: ['booksBorrowed', 'bookVotes', 'bookRatings', 'bookRatings.madeBy',
             //     'bookVotes.reviewVotedFor', 'bookRatings.bookName',
             //     'bookReviews', 'bookReviews.madeBy', 'bookReviews.votes', 'bookReviews.votes.madeBy',
@@ -46,6 +65,12 @@ export class UsersService {
         return user;
     }
 
+    async assignRoleToUser(userId: number, role: UserRole): Promise<UserDTO> {
+        const user: User = await this.usersRepository.findOne({ id: userId });
+        user.role = role;
+        const updatedUser: User = await this.usersRepository.save(user);
+        return updatedUser;
+    }
     async registerUser(userDto: RegisterUserDTO): Promise<UserDTO> {
         const existingUsername = await this.usersRepository.findOne({ where: { username: userDto.username } });
         if (existingUsername !== undefined) {
@@ -74,5 +99,12 @@ export class UsersService {
         const user = await this.getUserById(userId);
         user.banEndDate = new Date(Date.now() + period);
         return await this.usersRepository.save(user)
+    }
+
+    // add course to user
+    public async addCourseToUser(userId: number, course: Course): Promise<User> {
+        const user: User = await this.getUserById(userId);
+        user.courses.push(course);
+        return await this.usersRepository.save(user);
     }
 }

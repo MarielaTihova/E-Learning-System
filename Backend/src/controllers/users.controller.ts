@@ -3,7 +3,7 @@ import { UserRole } from './../models/enums/user-role';
 import { RolesGuard } from './../auth/roles.guard';
 
 import {
-    Controller, Get, HttpStatus, HttpCode, Param, Post, Body, ValidationPipe, UseGuards, Delete, ParseIntPipe,/*, Body, Post, Put, Param, UnauthorizedException, BadRequestException, Get*/
+    Controller, Get, HttpStatus, HttpCode, Param, Post, Body, ValidationPipe, UseGuards, Delete, ParseIntPipe, Put, Query,/*, Body, Post, Put, Param, UnauthorizedException, BadRequestException, Get*/
 } from "@nestjs/common";
 import { UsersService } from "src/services/users.service";
 import { UserDTO } from "src/dtos/users/user.dto";
@@ -20,10 +20,10 @@ export class UsersController {
 
     // ADMIN
     // @UseGuards(AuthGuard('jwt'), new RolesGuard(UserRole.Admin))
-    @UseGuards(BlacklistGuard, new RolesGuard(UserRole.Admin))
+    // @UseGuards(BlacklistGuard, new RolesGuard(UserRole.Admin))
     @Get()
-    async getAllUsers(): Promise<UserDTO[]> {
-        return await this.usersService.getAllUsers();
+    async getAllUsers(@Query('role') role?: string): Promise<UserDTO[]> {
+        return await this.usersService.getAllUsers(+role);
     }
 
     // PUBLIC
@@ -41,7 +41,6 @@ export class UsersController {
         return this.usersService.getUserById(+id);
     }
 
-
     // ADMIN
     // @UseGuards(AuthGuard('jwt'), new RolesGuard(UserRole.Admin))
     @UseGuards(BlacklistGuard, new RolesGuard(UserRole.Admin))
@@ -56,4 +55,9 @@ export class UsersController {
         return await this.usersService.banUser(userId, banDTO.period)
     }
 
+    @UseGuards(AuthGuard('jwt'))
+    @Put(':id/roles/:role')
+    async assignRoleToUser(@Param('id') userId: string, @Param('role') role: string) {
+        return this.usersService.assignRoleToUser(+userId, +role);
+    }
 }
