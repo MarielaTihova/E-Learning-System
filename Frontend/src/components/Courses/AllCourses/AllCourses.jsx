@@ -1,5 +1,13 @@
 import React, { useEffect, useState, useContext } from "react";
 import { withRouter } from 'react-router-dom';
+
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+
 import Container from "../../Base/Container/Container";
 import { BASE_URL } from "../../../common/constants";
 import AppError from "../../Pages/AppError/AppError";
@@ -20,6 +28,8 @@ const AllCourses = (props) => {
 
     const userContext = useContext(UserContext);
     const loggedUser = userContext.user;
+
+    const userIsTeacher = loggedUser.role === 'Teacher';
 
     useEffect(() => {
 
@@ -56,12 +66,42 @@ const AllCourses = (props) => {
 
     return (
         <div className="courses-wrapper">
+        <Card >
+        <CardContent>
+            <Typography variant="body2" >
+            Course name
+            </Typography>
+            <Typography sx={{ fontSize: 14, marginTop: 5 }} color="text.secondary" gutterBottom>
+            course description  course description course description course description course description course description course description course description course description course description course description course description course description course description course description course description course description course description course description course description course description course description course description course description course description course description course description course description course description course description course description course description course description course description course description course description course description course description course description course description course description course description
+            </Typography>
+        </CardContent>
+        <CardActions>
+            {userIsTeacher && <Button size="small">Edit</Button>}
+        </CardActions>
+    </Card>
             {appCourses.map((course, key) =>
-                <ul>
-                    <li key={key}>
-                        <div>Name: {course.name}</div>
-                        <div>Description: {course.description}</div></li>
-                </ul>)}
+                <Card sx={{ minWidth: 275 }} key={key}>
+                    <CardContent>
+                        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                        Word of the Day
+                        </Typography>
+                        <Typography variant="h5" component="div">
+
+                        </Typography>
+                        <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                        adjective
+                        </Typography>
+                        <Typography variant="body2">
+                        well meaning and kindly.
+                        <br />
+                        {'"a benevolent smile"'}
+                        </Typography>
+                    </CardContent>
+                    <CardActions>
+                        <Button size="small">Learn More</Button>
+                    </CardActions>
+                </Card>
+            )}
         </div >
     );
 };
