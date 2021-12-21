@@ -31,6 +31,7 @@ const NavBar = (props) => {
   const history = props.history;
   const [collapseID, setCollapseID] = useState(false);
   const [searching, setSearching] = useState("");
+  const [activeTab, setActiveTab] = useState('home');
 
   const userContext = useContext(UserContext);
   const loggedUser = userContext.user;
@@ -81,22 +82,22 @@ const NavBar = (props) => {
           <MDBNavbarToggler onClick={() => handleTogglerClick()} />
           <MDBCollapse isOpen={collapseID} navbar>
             <MDBNavbarNav left>
-              {loggedUser && <MDBNavItem active>
-                <MDBNavLink to='/home'>Home</MDBNavLink>
+              {loggedUser && <MDBNavItem onClick={()=>setActiveTab("home")} active={activeTab === "home"}>
+                <MDBNavLink to='/home' >Home</MDBNavLink>
               </MDBNavItem>}
               {!loggedUser &&  <MDBBtn href='/login' rounded className='login btn-purple'>
                 Login
             </MDBBtn>}
-              {loggedUser !== null ?
-                <MDBNavItem>
+              {loggedUser !== null &&
+                <MDBNavItem  onClick={()=>setActiveTab("profile")} active={activeTab === "profile"}>
                   <MDBNavLink to='/profile'>Profile</MDBNavLink>
                 </MDBNavItem>
-                : null}
-              {loggedUser !== null ?
-                <MDBNavItem>
+              }
+              {loggedUser !== null &&
+                <MDBNavItem onClick={()=>setActiveTab("courses")} active={activeTab === "courses"}>
                   <MDBNavLink to='/courses'>Courses</MDBNavLink>
                 </MDBNavItem>
-                : null}
+              }
             </MDBNavbarNav>
           { /* {loggedUser !== null ?
 
