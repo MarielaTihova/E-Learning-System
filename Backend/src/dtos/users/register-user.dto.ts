@@ -1,5 +1,5 @@
 
-import { IsString, Length, Matches } from "class-validator"
+import { IsNumber, IsString, Length, Matches } from "class-validator"
 export class RegisterUserDTO {
     @IsString()
     @Length(5, 30)
@@ -14,4 +14,6 @@ export class RegisterUserDTO {
     })
 
     password: string;
+    @IsNumber()
+    role: number;
 }

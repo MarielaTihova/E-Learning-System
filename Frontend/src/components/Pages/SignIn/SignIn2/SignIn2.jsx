@@ -1,4 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
+import queryString, { ParsedQuery, StringifyOptions } from 'query-string';
+import _ from "lodash";
+import { useLocation } from "react-router";
 import { BrowserRouter as Router } from "react-router-dom";
 import UserContext from '../../../../providers/UserContext';
 import jwtDecode from 'jwt-decode';
@@ -38,9 +41,13 @@ import { BASE_URL } from "../../../../common/constants";
 
 const SignIn = (props) => {
   const history = props.history;
-  const location = props.location;
+  const location = useLocation();
+
   const [collapseID, setCollapseID] = useState(false);
-  //   const [searching, setSearching] = useState("Harry");
+
+  const queryParams = queryString.parse(location.search);
+
+  const userRole = _.get(queryParams, 'role');
 
   const userContext = useContext(UserContext);
   const loggedUser = userContext.user;
@@ -185,7 +192,8 @@ const SignIn = (props) => {
       },
       body: JSON.stringify({
         ...user,
-        personalName: user.username
+        personalName: user.username,
+        role: Number(userRole)
       }),
     })
       .then(r => r.json())
@@ -215,29 +223,7 @@ const SignIn = (props) => {
           className="mt-5  d-flex justify-content-center align-items-center"
         >
           <MDBRow>
-            <MDBAnimation
-              type="fadeInLeft"
-              delay=".3s"
-              className="white-text text-center text-md-left col-md-6 mt-xl-5 mb-5"
-            >
-              <h1 className="h1-responsive font-weight-bold">
-                Sign up right now!
-              </h1>
-              <hr className="hr-light" />
-              <h6 className="mb-4">
-                You love books but don't want to pay for them?
-                No problem! You are just 1 step away from gaining unlimited access to a free online library!
-                Just fill in the register form and start your reading journey with us!
-              </h6>
-
-              <MDBBtn outline color="white">
-                <a href="#aboutus" className="link">
-
-                  More about us</a>
-              </MDBBtn>
-            </MDBAnimation>
-
-            <MDBCol md="6" xl="4" className="mb-4">
+            <MDBCol >
               <MDBAnimation type="fadeInRight" delay=".3s">
                 <MDBCard id="classic-card">
 

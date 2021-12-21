@@ -2,3 +2,15 @@
     min-height: 100vh !important;
     height: unset !important;
   }
+
+  #caltoaction .container {
+    position: relative;
+  }
+
+#caltoaction .login {
+  position: absolute;
+  right: 0;
+  top: 10px;
+
+  color: white;
+}

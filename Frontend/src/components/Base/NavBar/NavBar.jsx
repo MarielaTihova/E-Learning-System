@@ -31,6 +31,7 @@ const NavBar = (props) => {
   const history = props.history;
   const [collapseID, setCollapseID] = useState(false);
   const [searching, setSearching] = useState("");
+  const [activeTab, setActiveTab] = useState('home');
 
   const userContext = useContext(UserContext);
   const loggedUser = userContext.user;
@@ -70,7 +71,7 @@ const NavBar = (props) => {
         fixed='top'
         scrolling
       >
-        <MDBContainer>
+        <MDBContainer className='container'>
           <img height="75px" padding="0px" margin="0px" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.freeiconspng.com%2Fuploads%2Fowl-icon-20.png&f=1&nofb=1"></img>
           <MDBNavbarBrand>
             <MDBNavLink to='/home' style={{ color: "black", marginTop: "10px" }}>
@@ -81,21 +82,24 @@ const NavBar = (props) => {
           <MDBNavbarToggler onClick={() => handleTogglerClick()} />
           <MDBCollapse isOpen={collapseID} navbar>
             <MDBNavbarNav left>
-              <MDBNavItem active>
-                <MDBNavLink to='/home'>Home</MDBNavLink>
-              </MDBNavItem>
-              {loggedUser !== null ?
-                <MDBNavItem>
+              {loggedUser && <MDBNavItem onClick={()=>setActiveTab("home")} active={activeTab === "home"}>
+                <MDBNavLink to='/home' >Home</MDBNavLink>
+              </MDBNavItem>}
+              {!loggedUser &&  <MDBBtn href='/login' rounded className='login btn-purple'>
+                Login
+            </MDBBtn>}
+              {loggedUser !== null &&
+                <MDBNavItem  onClick={()=>setActiveTab("profile")} active={activeTab === "profile"}>
                   <MDBNavLink to='/profile'>Profile</MDBNavLink>
                 </MDBNavItem>
-                : null}
-              {loggedUser !== null ?
-                <MDBNavItem>
+              }
+              {loggedUser !== null &&
+                <MDBNavItem onClick={()=>setActiveTab("courses")} active={activeTab === "courses"}>
                   <MDBNavLink to='/courses'>Courses</MDBNavLink>
                 </MDBNavItem>
-                : null}
+              }
             </MDBNavbarNav>
-            {loggedUser !== null ?
+          { /* {loggedUser !== null ?
 
               <MDBNavbarNav right>
                 <MDBNavItem>
@@ -121,17 +125,10 @@ const NavBar = (props) => {
                 </MDBNavItem>
               </MDBNavbarNav>
 
-              : null}
-            {loggedUser ?
-              <MDBNavItem>
-                <MDBDropdown>
-                  <MDBDropdownMenu className="dropdown-default" right>
-                    <MDBDropdownItem href="/profile">My account</MDBDropdownItem>
-                    <MDBDropdownItem href="/logout">Log out</MDBDropdownItem>
-                  </MDBDropdownMenu>
-                </MDBDropdown>
-              </MDBNavItem>
-              : null}
+                      : null}*/}
+            {loggedUser &&  <MDBBtn href='/logout' rounded className='login btn-purple'>
+            Logout
+        </MDBBtn>}}
           </MDBCollapse>
         </MDBContainer>
       </MDBNavbar>
