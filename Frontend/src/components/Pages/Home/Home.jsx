@@ -50,7 +50,6 @@ const Home = () => {
                     Welcome to E-learning system
                   </h1>
                   <h5 className='pt-md-5 pt-sm-2 pt-5 pb-md-5 pb-sm-3 pb-5'>
-                  Learning is not attained by chance, it must be sought for with ardor and attended to with diligence.
                   </h5>
                   <MDBBtn href='/register?role=3' rounded className='btn-purple'>
                     <MDBIcon icon='user' className='mr-2' /> Sign up as teacher!
