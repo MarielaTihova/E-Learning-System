@@ -98,7 +98,7 @@ const NavBar = (props) => {
                 </MDBNavItem>
                 : null}
             </MDBNavbarNav>
-            {loggedUser !== null ?
+          { /* {loggedUser !== null ?
 
               <MDBNavbarNav right>
                 <MDBNavItem>
@@ -124,17 +124,10 @@ const NavBar = (props) => {
                 </MDBNavItem>
               </MDBNavbarNav>
 
-              : null}
-            {loggedUser ?
-              <MDBNavItem>
-                <MDBDropdown>
-                  <MDBDropdownMenu className="dropdown-default" right>
-                    <MDBDropdownItem href="/profile">My account</MDBDropdownItem>
-                    <MDBDropdownItem href="/logout">Log out</MDBDropdownItem>
-                  </MDBDropdownMenu>
-                </MDBDropdown>
-              </MDBNavItem>
-              : null}
+                      : null}*/}
+            {loggedUser &&  <MDBBtn href='/logout' rounded className='login btn-purple'>
+            Logout
+        </MDBBtn>}}
           </MDBCollapse>
         </MDBContainer>
       </MDBNavbar>
