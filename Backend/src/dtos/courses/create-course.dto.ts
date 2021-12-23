@@ -8,5 +8,14 @@ export class CreateCourseDTO {
     @IsString()
     @Length(5, 256)
     description: string;
+    @IsString()
+    @Length(2, 100)
+    start: string;
+    @IsString()
+    @Length(2, 100)
+    end: string;
+    @IsString()
+    @Length(2, 100)
+    dayOfWeek: string;
     // schedule: CourseSchedule[];
 }

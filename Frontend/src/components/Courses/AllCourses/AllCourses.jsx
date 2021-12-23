@@ -15,6 +15,8 @@ import UserContext from "../../../providers/UserContext";
 import './AllCourses.scss';
 
 
+import CreateCourseDialog from "../../CreateCourseDialog";
+
 const AllCourses = (props) => {
     const history = props.history;
     const word = props.location.search;
@@ -79,6 +81,7 @@ const AllCourses = (props) => {
             {userIsTeacher && <Button size="small">Edit</Button>}
         </CardActions>
     </Card>
+    <div className="add-button"><CreateCourseDialog/></div>
             {appCourses.map((course, key) =>
                 <Card sx={{ minWidth: 275 }} key={key}>
                     <CardContent>
