@@ -39,8 +39,6 @@ const UpdateCourseDialog = ({course, open, onClose}) => {
     dayOfWeek: 1
   }
 
-  console.log(initialValues, "initialValues");
-
   const handleSubmit = (values) => {
     console.log("Submitting");
 
@@ -76,7 +74,7 @@ const UpdateCourseDialog = ({course, open, onClose}) => {
   return (
       <Dialog open={open} onClose={onClose} fullWidth>
       <form onSubmit={formik.handleSubmit}>
-        <DialogTitle>Create new course</DialogTitle>
+        <DialogTitle>Update course</DialogTitle>
         <DialogContent>
         <Stack spacing={2}>
           <TextField
