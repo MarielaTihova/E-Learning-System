@@ -55,7 +55,7 @@ const CreateCourseDialog = () => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: values,
+      body: JSON.stringify({...values}),
     })
       .then(r => r.json())
       .then(result => {

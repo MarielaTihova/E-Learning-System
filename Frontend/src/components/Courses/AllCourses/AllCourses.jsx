@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import { withRouter } from 'react-router-dom';
 
-import Box from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -13,6 +13,8 @@ import { BASE_URL } from "../../../common/constants";
 import AppError from "../../Pages/AppError/AppError";
 import UserContext from "../../../providers/UserContext";
 import './AllCourses.scss';
+
+import {datetime} from '../../../utils/datetime'
 
 
 import CreateCourseDialog from "../../CreateCourseDialog";
@@ -68,43 +70,32 @@ const AllCourses = (props) => {
 
     return (
         <div className="courses-wrapper">
-        <Card >
-        <CardContent>
-            <Typography variant="body2" >
-            Course name
-            </Typography>
-            <Typography sx={{ fontSize: 14, marginTop: 5 }} color="text.secondary" gutterBottom>
-            course description  course description course description course description course description course description course description course description course description course description course description course description course description course description course description course description course description course description course description course description course description course description course description course description course description course description course description course description course description course description course description course description course description course description course description course description course description course description course description course description course description course description
-            </Typography>
-        </CardContent>
-        <CardActions>
-            {userIsTeacher && <Button size="small">Edit</Button>}
-        </CardActions>
-    </Card>
-    <div className="add-button"><CreateCourseDialog/></div>
             {appCourses.map((course, key) =>
-                <Card sx={{ minWidth: 275 }} key={key}>
+                <Card >
                     <CardContent>
-                        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                        Word of the Day
+                        <Stack sx={{"flex-direction": "row",
+                            "justify-content": "space-between"}}>
+                            <Typography >
+                            {course.name}
+                            </Typography>
+                            <Stack>
+                                <Typography variant="subtitle2">
+                                {/* TODO: Use courese schedule day of week and start,end time here*/}
+                                    Monday from {datetime("12:30:00", 'HH:mm:ss',).format("hh:mm A")} to {datetime("14:00:00", 'HH:mm:ss',).format("hh:mm A")}
+                                </Typography>
+                            </Stack>
+                        </Stack>
+                        <Typography sx={{ fontSize: 14, marginTop: 5 }} color="text.secondary" gutterBottom>
+                            {course.description}
                         </Typography>
-                        <Typography variant="h5" component="div">
 
-                        </Typography>
-                        <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                        adjective
-                        </Typography>
-                        <Typography variant="body2">
-                        well meaning and kindly.
-                        <br />
-                        {'"a benevolent smile"'}
-                        </Typography>
                     </CardContent>
                     <CardActions>
-                        <Button size="small">Learn More</Button>
+                        {userIsTeacher && <Button size="small">Edit</Button>}
                     </CardActions>
                 </Card>
             )}
+            <div className="add-button"><CreateCourseDialog/></div>
         </div >
     );
 };

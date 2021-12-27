@@ -84,13 +84,13 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:3000/courses",
+					"raw": "localhost:3000/create-course",
 					"host": [
 						"localhost"
 					],
 					"port": "3000",
 					"path": [
-						"courses"
+						"create-course"
 					]
 				}
 			},

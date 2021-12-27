@@ -12,6 +12,7 @@
     "@types/jwt-decode": "^2.2.1",
     "@types/react-toastify": "^4.1.0",
     "bootstrap": "^4.5.2",
+    "dayjs": "^1.10.7",
     "formik": "^2.2.9",
     "jwt-decode": "^2.2.0",
     "mdbreact": "^4.27.0",
