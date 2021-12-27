@@ -1,4 +1,5 @@
 import * as React from 'react';
+
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
@@ -12,6 +13,8 @@ import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 
 import { BASE_URL } from "../../common/constants";
+
+import {datetime} from '../../utils/datetime'
 
 import jwtDecode from 'jwt-decode';
 
@@ -27,29 +30,21 @@ export const DAYS_OF_THE_WEEK_CHOICES = [
   { label: 'Sunday', value: 7 }
 ];
 
-const CreateCourseDialog = () => {
-  const [open, setOpen] = React.useState(false);
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
+const UpdateCourseDialog = ({course, open, onClose}) => {
   const initialValues = {
-    name: '',
-    description: '',
-    start: "",
-    end: "",
+    name: course.name,
+    description: course.description,
+    start: "12:30:00", // test
+    end: "14:00:00",
     dayOfWeek: 1
   }
+
+  console.log(initialValues, "initialValues");
 
   const handleSubmit = (values) => {
     console.log("Submitting");
 
-    fetch(`${BASE_URL}/create-course`, {
+    fetch(`${BASE_URL}/update-course`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -79,17 +74,14 @@ const CreateCourseDialog = () => {
 
 
   return (
-    <div>
-      <Button variant="outlined" onClick={handleClickOpen}>
-        Create new course
-      </Button>
-      <Dialog open={open} onClose={handleClose} fullWidth>
+      <Dialog open={open} onClose={onClose} fullWidth>
       <form onSubmit={formik.handleSubmit}>
         <DialogTitle>Create new course</DialogTitle>
         <DialogContent>
         <Stack spacing={2}>
           <TextField
             autoFocus
+            value={formik.values.name}
             margin="dense"
             id="name"
             label="Title"
@@ -100,6 +92,7 @@ const CreateCourseDialog = () => {
           />
           <TextField
             multiline
+            value={formik.values.description}
             rows={4}
             margin="dense"
             id="description"
@@ -111,10 +104,11 @@ const CreateCourseDialog = () => {
           />
           <TextField
             fullWidth
+            value={formik.values.start}
             label="Start *"
             type="time"
             name="start"
-            value={formik.values.start_time}
+            value={formik.values.start}
             onChange={formik.handleChange}
             InputLabelProps={{
               shrink: true
@@ -122,10 +116,11 @@ const CreateCourseDialog = () => {
         />
           <TextField
               fullWidth
+              value={formik.values.end}
               label="End *"
               type="time"
               name="end"
-              value={formik.values.start_time}
+              value={formik.values.end}
               onChange={formik.handleChange}
               InputLabelProps={{
                 shrink: true
@@ -156,13 +151,12 @@ const CreateCourseDialog = () => {
           </Stack>
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleClose}>Cancel</Button>
+            <Button onClick={onClose}>Cancel</Button>
             <Button type="submit">Create</Button>
           </DialogActions>
         </form>
       </Dialog>
-    </div>
   );
 }
 
-export default CreateCourseDialog;
+export default UpdateCourseDialog;
