@@ -1,0 +1,15 @@
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+import timezone from 'dayjs/plugin/timezone';
+import advancedFormat from 'dayjs/plugin/advancedFormat';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
+
+dayjs.extend(advancedFormat);
+
+dayjs.extend(utc);
+
+dayjs.extend(timezone);
+
+dayjs.extend(customParseFormat);
+
+export const datetime = dayjs;
