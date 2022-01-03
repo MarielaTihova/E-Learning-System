@@ -1,6 +1,7 @@
 
 import { IsString, Length, Matches } from "class-validator"
-import { CourseSchedule } from "src/models/course-schedule.entity";
+import { DayOfWeek } from "src/models/enums/day-of-week";
+// import { CourseSchedule } from "src/models/course-schedule.entity";
 export class CreateCourseDTO {
     @IsString()
     @Length(2, 100)
@@ -9,13 +10,11 @@ export class CreateCourseDTO {
     @Length(5, 256)
     description: string;
     @IsString()
-    @Length(2, 100)
-    start: string;
+    @Length(4, 20)
+    startTime: string;
     @IsString()
-    @Length(2, 100)
-    end: string;
-    @IsString()
-    @Length(2, 100)
-    dayOfWeek: string;
+    @Length(4, 20)
+    endTime: string;
+    dayOfWeek: DayOfWeek;
     // schedule: CourseSchedule[];
 }

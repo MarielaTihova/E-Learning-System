@@ -55,7 +55,7 @@ export class UsersController {
         return await this.usersService.banUser(userId, banDTO.period)
     }
 
-    @UseGuards(AuthGuard('jwt'))
+    @UseGuards(AuthGuard('jwt'), new RolesGuard(UserRole.Admin))
     @Put(':id/roles/:role')
     async assignRoleToUser(@Param('id') userId: string, @Param('role') role: string) {
         return this.usersService.assignRoleToUser(+userId, +role);

@@ -16,18 +16,19 @@ import AppError from "../../Pages/AppError/AppError";
 import UserContext from "../../../providers/UserContext";
 import './AllCourses.scss';
 
-import {datetime} from '../../../utils/datetime'
+import { datetime } from '../../../utils/datetime';
 
 
 import CreateCourseDialog from "../../CreateCourseDialog";
 import UpdateCourseDialog from "../../UpdateCourseDialog";
+import { DayOfWeek } from '../../../common/dayOfWeek.enum.ts';
 
 
 const AllCourses = (props) => {
     const [error, setError] = useState(null);
     const [appCourses, updateCourses] = useState([]);
 
-    const [selectedCourese, setSelectedCourese] = useState(null)
+    const [selectedCourses, setSelectedCourses] = useState(null)
 
     const [updateCourseDialogOpened, setUpdateCourseDialogOpened] = useState(false);
 
@@ -58,11 +59,11 @@ const AllCourses = (props) => {
 
     if (error) {
         return (
-            <div>
-                <Container>
-                    <AppError message={error} />
-                </Container>
-            </div>
+          <div>
+            <Container>
+              <AppError message={error} />
+            </Container>
+          </div>
         );
     }
 
@@ -70,37 +71,37 @@ const AllCourses = (props) => {
     // console.log("All Courses", appCourses);
 
     return (
-        <div className="courses-wrapper">
-            {appCourses.map((course, key) =>
-                <Card onClick={()=>setSelectedCourese(course)}>
-                    <CardContent>
-                        <Stack sx={{"flex-direction": "row",
-                            "justify-content": "space-between"}}>
-                            <Typography >
-                            {course.name}
-                            </Typography>
-                            <Stack>
-                                <Typography variant="subtitle2">
-                                {/* TODO: Use courese schedule day of week and start,end time here*/}
-                                    Monday from {datetime("12:30:00", 'HH:mm:ss',).format("hh:mm A")} to {datetime("14:00:00", 'HH:mm:ss',).format("hh:mm A")}
-                                </Typography>
-                            </Stack>
-                        </Stack>
-                        <Typography sx={{ fontSize: 14, marginTop: 5 }} color="text.secondary" gutterBottom>
-                            {course.description}
-                        </Typography>
-
-                    </CardContent>
-                    <CardActions>
-                        {userIsTeacher && <Button size="small" onClick={()=>setUpdateCourseDialogOpened(true)}>Edit</Button>}
-                    </CardActions>
-                </Card>
-            )}
-            <div className="add-button"><CreateCourseDialog/></div>
-            {updateCourseDialogOpened && !_.isNil(selectedCourese) &&
-                 <UpdateCourseDialog open onClose={()=> setUpdateCourseDialogOpened(false)} course={selectedCourese}/>
-            }
-        </div >
+      <div className="courses-wrapper">
+        {appCourses.map((course, key) =>
+          <Card onClick={() => setSelectedCourses(course)} key={course.id}>
+            <CardContent>
+              <Stack sx={{
+                  "flexDirection": "row",
+                  "justifyContent": "space-between",
+              }}>
+                <Typography>
+                  {course.name}
+                </Typography>
+                <Stack>
+                  <Typography variant="subtitle2">
+                    {DayOfWeek[course.dayOfWeek]} from {datetime(course.startTime, 'HH:mm',).format("hh:mm A")} to {datetime(course.endTime, 'HH:mm',).format("hh:mm A")}
+                    {/* Monday from {datetime("12:30:00", 'HH:mm:ss',).format("hh:mm A")} to {datetime("14:00:00", 'HH:mm:ss',).format("hh:mm A")} */}
+                  </Typography>
+                </Stack>
+              </Stack>
+              <Typography sx={{ fontSize: 14, marginTop: 5 }} color="text.secondary" gutterBottom>
+                {course.description}
+              </Typography>       
+            </CardContent>
+            <CardActions>
+              {userIsTeacher && <Button size="small" onClick={() => setUpdateCourseDialogOpened(true)}>Edit</Button>}
+            </CardActions>
+          </Card>
+        )}
+        <div className="add-button"><CreateCourseDialog /></div>
+        {updateCourseDialogOpened && !_.isNil(selectedCourses) &&
+          <UpdateCourseDialog open onClose={() => setUpdateCourseDialogOpened(false)} course={selectedCourses} />}
+      </div>
     );
 };
 

@@ -41,33 +41,26 @@ const CreateCourseDialog = () => {
   const initialValues = {
     name: '',
     description: '',
-    start: "",
-    end: "",
+    startTime: "",
+    endTime: "",
     dayOfWeek: 1
   }
 
   const handleSubmit = (values) => {
-    console.log("Submitting");
-
-    fetch(`${BASE_URL}/create-course`, {
+    console.log("Submitting", values);
+    // Create course
+    fetch(`${BASE_URL}/courses`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('token') || ''}`
       },
       body: JSON.stringify({...values}),
     })
       .then(r => r.json())
       .then(result => {
-        if (result.error) {
-          return alert(result.message);
-        }
-
-        try {
-          const payload = jwtDecode(result.token);
-          // setUser(payload);
-        } catch (e) {
-          return alert(e.message);
-        }
+        console.log('Course created', result);
+        setOpen(false);
       })
       .catch(alert);
   }
@@ -113,7 +106,7 @@ const CreateCourseDialog = () => {
             fullWidth
             label="Start *"
             type="time"
-            name="start"
+            name="startTime"
             value={formik.values.start_time}
             onChange={formik.handleChange}
             InputLabelProps={{
@@ -124,7 +117,7 @@ const CreateCourseDialog = () => {
               fullWidth
               label="End *"
               type="time"
-              name="end"
+              name="endTime"
               value={formik.values.start_time}
               onChange={formik.handleChange}
               InputLabelProps={{

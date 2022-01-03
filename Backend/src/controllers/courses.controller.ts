@@ -1,4 +1,4 @@
-import { BadRequestException, Body, Controller, Get, HttpCode, HttpStatus, Param, Post, Put, UseGuards } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Get, HttpCode, HttpStatus, Param, Patch, Post, Put, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { BlacklistGuard } from 'src/auth/blacklist.guard';
 import { RolesGuard } from 'src/auth/roles.guard';
@@ -36,14 +36,21 @@ export class CoursesController {
         return await this.coursesService.getCourseById(+courseId);
     }
 
-    @UseGuards(BlacklistGuard, new RolesGuard(UserRole.Student))
+    @UseGuards(BlacklistGuard, new RolesGuard(UserRole.Teacher))
     @Put(':courseId')
+    async editCourse(@Param('courseId') courseId: string, @Body() newData: CreateCourseDTO, @UserId() userId: string) {
+        return await this.coursesService.editCourse(+courseId, newData, +userId);
+    }
+
+
+    @UseGuards(BlacklistGuard, new RolesGuard(UserRole.Student))
+    @Put('enroll/:courseId')
     async enrollMyselfInCourse(@Param('courseId') courseId: string, @UserId() studentId: string) {
         return await this.coursesService.enrollStudentInCourse(+courseId, +studentId);
     }
 
     @UseGuards(BlacklistGuard, new RolesGuard(UserRole.Teacher))
-    @Put(':courseId/students/:studentId')
+    @Put('enroll/:courseId/students/:studentId')
     async enrollStudentInCourse(@Param('courseId') courseId: string, @Param('studentId') studentId: string, @UserId() teacherId: string) {
         const teacher: User = await this.usersService.getUserById(+teacherId);
         if (!teacher.courses.find((course: Course) => course.id === +courseId)) {
