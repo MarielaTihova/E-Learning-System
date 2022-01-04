@@ -102,7 +102,7 @@ const AllCourses = (props) => {
             </CardActions>
           </Card>
         )}
-        <div className="add-button"><CreateCourseDialog /></div>
+        <div className="add-button"><CreateCourseDialog onSubmit={()=>fetchCourses()} /></div>
         {updateCourseDialogOpened && !_.isNil(selectedCourses) &&
           <UpdateCourseDialog open onClose={() => setUpdateCourseDialogOpened(false)} course={selectedCourses} onSubmit={onCourseUpdate}/>}
       </div>
