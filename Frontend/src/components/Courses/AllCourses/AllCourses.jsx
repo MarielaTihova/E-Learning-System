@@ -1,6 +1,6 @@
 import _ from 'lodash'
 
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, useCallback} from "react";
 import { withRouter } from 'react-router-dom';
 
 import Stack from '@mui/material/Stack';
@@ -35,24 +35,30 @@ const AllCourses = (props) => {
 
     const userIsTeacher = loggedUser.role === 'Teacher';
 
-    useEffect(() => {
+    const fetchCourses = useCallback( () => fetch(`${BASE_URL}/courses`, {
+      headers: {
+          Authorization: `Bearer ${localStorage.getItem('token') || ''}`,
+      }
+  })
+      .then((response) => response.json())
+      .then((result) => {
+          if (Array.isArray(result)) {
+              console.log(result);
+              updateCourses(result);
+          } else {
+              throw new Error(result.message);
+          }
+      })
+      .catch((error) => setError(error.message)), [])
 
-        fetch(`${BASE_URL}/courses`, {
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem('token') || ''}`,
-            }
-        })
-            .then((response) => response.json())
-            .then((result) => {
-                if (Array.isArray(result)) {
-                    console.log(result);
-                    updateCourses(result);
-                } else {
-                    throw new Error(result.message);
-                }
-            })
-            .catch((error) => setError(error.message))
-    }, []);
+    useEffect(() =>
+      fetchCourses()
+    , []);
+
+    const onCourseUpdate = () => {
+      setUpdateCourseDialogOpened(false);
+      fetchCourses()
+    }
 
 
     if (error) {
@@ -98,7 +104,7 @@ const AllCourses = (props) => {
         )}
         <div className="add-button"><CreateCourseDialog /></div>
         {updateCourseDialogOpened && !_.isNil(selectedCourses) &&
-          <UpdateCourseDialog open onClose={() => setUpdateCourseDialogOpened(false)} course={selectedCourses} />}
+          <UpdateCourseDialog open onClose={() => setUpdateCourseDialogOpened(false)} course={selectedCourses} onSubmit={onCourseUpdate}/>}
       </div>
     );
 };
