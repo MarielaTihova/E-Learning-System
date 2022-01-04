@@ -77,7 +77,9 @@ const AllCourses = (props) => {
     return (
       <div className="courses-wrapper">
         {appCourses.map((course, key) =>
-          <Card onClick={() => setSelectedCourses(course)} key={course.id}>
+          <Card onClick={() => setSelectedCourses(course)} key={course.id} sx={{
+            marginBottom: "20px"
+        }}>
             <CardContent>
               <Stack sx={{
                   "flexDirection": "row",
