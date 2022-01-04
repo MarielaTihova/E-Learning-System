@@ -1,8 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateCourseDTO } from 'src/dtos/courses/create-course.dto';
-import { CourseSchedule } from 'src/models/course-schedule.entity';
+// import { CourseSchedule } from 'src/models/course-schedule.entity';
 import { Course } from 'src/models/course.entity';
+import { UserRole } from 'src/models/enums/user-role';
 import { User } from 'src/models/user.entity';
 import { Repository } from "typeorm";
 import { UsersService } from './users.service';
@@ -18,20 +19,30 @@ export class CoursesService {
 
     async getAllCourses(userId: number): Promise<Course[]> {
         const loggedUser: User = await this.usersService.getUserById(userId);
-        return await (await this.coursesRepository.find({
+        const allCourses: Course[] = await (await this.coursesRepository.find({
             relations: ['participants']
-        })).filter((course: Course) => course.participants.find((user: User) => user.id === loggedUser.id));
+        }));
+        return loggedUser.role === UserRole.Admin ? allCourses : allCourses.filter((course: Course) => course.participants.find((user: User) => user.id === loggedUser.id));
+        // return await (await this.coursesRepository.find({
+        //     relations: ['participants']
+        // })).filter((course: Course) => course.participants.find((user: User) => user.id === loggedUser.id));
     }
 
     async getCourseById(courseId: number): Promise<Course> {
-        return await this.coursesRepository.findOne(courseId);
+        return await this.coursesRepository.findOne({
+            where: { id: courseId },
+            relations: ['participants']
+        });
     }
 
     // TEACHER creates a course
     async createCourse(course: CreateCourseDTO, teacherId: number): Promise<Course> {
-        let courseEntityInstance: Course = this.coursesRepository.create();
+        const courseEntityInstance: Course = this.coursesRepository.create();
         courseEntityInstance.name = course.name;
         courseEntityInstance.description = course.description;
+        courseEntityInstance.startTime = course.startTime;
+        courseEntityInstance.endTime = course.endTime;
+        courseEntityInstance.dayOfWeek = course.dayOfWeek;
         // courseEntityInstance.schedule = course.schedule;
 
         const courseCreated: Course = await this.coursesRepository.save(courseEntityInstance);
@@ -47,6 +58,25 @@ export class CoursesService {
 
         return this.coursesRepository.save(courseCreatedDbRecord);
 
+    }
+
+    // TEACHER updates course
+    async editCourse(courseId: number, newData: CreateCourseDTO, userId: number) {
+        const loggedUser: User = await this.usersService.getUserById(userId);
+        const course: Course = await this.getCourseById(courseId);
+        const canEdit: boolean = loggedUser.role === UserRole.Admin || 
+        (loggedUser.role === UserRole.Teacher && !!course.participants.find((p: User) => p.id === userId));
+        if (canEdit) {
+            course.name = newData.name;
+            course.description = newData.description;
+            course.startTime = newData.startTime;
+            course.endTime = newData.endTime;
+            course.dayOfWeek = newData.dayOfWeek;
+    
+            return this.coursesRepository.save(course);
+        } else {
+            throw new BadRequestException('To edit a course, you have to be its teacher or have admin rights!');
+        }
     }
 
     // add user to course

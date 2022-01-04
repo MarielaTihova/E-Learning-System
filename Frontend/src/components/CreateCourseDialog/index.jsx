@@ -11,23 +11,13 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 
-import { BASE_URL } from "../../common/constants";
+import { BASE_URL, DAYS_OF_THE_WEEK_CHOICES } from "../../common/constants";
 
 import jwtDecode from 'jwt-decode';
 
 import { useFormik } from 'formik';
 
-export const DAYS_OF_THE_WEEK_CHOICES = [
-  { label: 'Monday', value: 1 },
-  { label: 'Tuesday', value: 2 },
-  { label: 'Wednesday', value: 3 },
-  { label: 'Thursday', value: 4 },
-  { label: 'Friday', value: 5 },
-  { label: 'Saturday', value: 6 },
-  { label: 'Sunday', value: 7 }
-];
-
-const CreateCourseDialog = () => {
+const CreateCourseDialog = ({onSubmit}) => {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -41,33 +31,27 @@ const CreateCourseDialog = () => {
   const initialValues = {
     name: '',
     description: '',
-    start: "",
-    end: "",
+    startTime: "",
+    endTime: "",
     dayOfWeek: 1
   }
 
   const handleSubmit = (values) => {
-    console.log("Submitting");
-
-    fetch(`${BASE_URL}/create-course`, {
+    console.log("Submitting", values);
+    // Create course
+    fetch(`${BASE_URL}/courses`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('token') || ''}`
       },
       body: JSON.stringify({...values}),
     })
       .then(r => r.json())
       .then(result => {
-        if (result.error) {
-          return alert(result.message);
-        }
-
-        try {
-          const payload = jwtDecode(result.token);
-          // setUser(payload);
-        } catch (e) {
-          return alert(e.message);
-        }
+        console.log('Course created', result);
+        setOpen(false);
+        onSubmit();
       })
       .catch(alert);
   }
@@ -113,7 +97,7 @@ const CreateCourseDialog = () => {
             fullWidth
             label="Start *"
             type="time"
-            name="start"
+            name="startTime"
             value={formik.values.start_time}
             onChange={formik.handleChange}
             InputLabelProps={{
@@ -124,7 +108,7 @@ const CreateCourseDialog = () => {
               fullWidth
               label="End *"
               type="time"
-              name="end"
+              name="endTime"
               value={formik.values.start_time}
               onChange={formik.handleChange}
               InputLabelProps={{
