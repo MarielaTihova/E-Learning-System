@@ -11,7 +11,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
 import Container from "../../Base/Container/Container";
-import { BASE_URL } from "../../../common/constants";
+import { BASE_URL, DAYS_OF_THE_WEEK_CHOICES } from "../../../common/constants";
 import AppError from "../../Pages/AppError/AppError";
 import UserContext from "../../../providers/UserContext";
 import './AllCourses.scss';
@@ -21,8 +21,6 @@ import { datetime } from '../../../utils/datetime';
 
 import CreateCourseDialog from "../../CreateCourseDialog";
 import UpdateCourseDialog from "../../UpdateCourseDialog";
-import { DayOfWeek } from '../../../common/dayOfWeek.enum.ts';
-
 
 const AllCourses = (props) => {
     const [error, setError] = useState(null);
@@ -68,7 +66,7 @@ const AllCourses = (props) => {
     }
 
     // const neww = sortBooks(appBooks);
-    // console.log("All Courses", appCourses);
+     console.log("All Courses", appCourses);
 
     return (
       <div className="courses-wrapper">
@@ -84,14 +82,14 @@ const AllCourses = (props) => {
                 </Typography>
                 <Stack>
                   <Typography variant="subtitle2">
-                    {DayOfWeek[course.dayOfWeek]} from {datetime(course.startTime, 'HH:mm',).format("hh:mm A")} to {datetime(course.endTime, 'HH:mm',).format("hh:mm A")}
+                    {_.find(DAYS_OF_THE_WEEK_CHOICES, ['value', course.dayOfWeek])?.label} from {datetime(course.startTime, 'HH:mm',).format("hh:mm A")} to {datetime(course.endTime, 'HH:mm',).format("hh:mm A")}
                     {/* Monday from {datetime("12:30:00", 'HH:mm:ss',).format("hh:mm A")} to {datetime("14:00:00", 'HH:mm:ss',).format("hh:mm A")} */}
                   </Typography>
                 </Stack>
               </Stack>
               <Typography sx={{ fontSize: 14, marginTop: 5 }} color="text.secondary" gutterBottom>
                 {course.description}
-              </Typography>       
+              </Typography>
             </CardContent>
             <CardActions>
               {userIsTeacher && <Button size="small" onClick={() => setUpdateCourseDialogOpened(true)}>Edit</Button>}
