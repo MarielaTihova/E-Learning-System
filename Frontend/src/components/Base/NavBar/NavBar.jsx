@@ -76,7 +76,7 @@ const NavBar = (props) => {
           <MDBNavbarBrand>
             <MDBNavLink to='/home' style={{ color: "black", marginTop: "10px" }}>
 
-              <strong className="text-telerik">E-Learn</strong>
+              <strong>E-Learn</strong>
             </MDBNavLink>
           </MDBNavbarBrand>
           <MDBNavbarToggler onClick={() => handleTogglerClick()} />
@@ -94,10 +94,14 @@ const NavBar = (props) => {
                 </MDBNavItem>
               }
               {loggedUser !== null &&
-                <MDBNavItem onClick={()=>setActiveTab("courses")} active={activeTab === "courses"}>
-                  <MDBNavLink to='/courses'>Courses</MDBNavLink>
+                <MDBNavItem onClick={()=>setActiveTab("myCourses")} active={activeTab === "myCourses"}>
+                  <MDBNavLink to='/courses'>My Courses</MDBNavLink>
                 </MDBNavItem>
               }
+              {loggedUser &&  loggedUser.role === 'Student' &&  <MDBNavItem classNamw="allCourses" onClick={()=>setActiveTab("allCourses")} active={activeTab === "allCourses"}>
+              <MDBNavLink to='/all-courses'>All Courses</MDBNavLink>
+            </MDBNavItem>
+            }
             </MDBNavbarNav>
           { /* {loggedUser !== null ?
 
@@ -126,6 +130,7 @@ const NavBar = (props) => {
               </MDBNavbarNav>
 
                       : null}*/}
+
             {loggedUser &&  <MDBBtn href='/logout' rounded className='login btn-purple'>
             Logout
         </MDBBtn>}}

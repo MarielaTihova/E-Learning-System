@@ -1,7 +1,6 @@
 import _ from 'lodash'
 
 import React, { useEffect, useState, useContext, useCallback} from "react";
-import { withRouter } from 'react-router-dom';
 
 import Stack from '@mui/material/Stack';
 import Card from '@mui/material/Card';
@@ -14,20 +13,28 @@ import Container from "../../Base/Container/Container";
 import { BASE_URL, DAYS_OF_THE_WEEK_CHOICES } from "../../../common/constants";
 import AppError from "../../Pages/AppError/AppError";
 import UserContext from "../../../providers/UserContext";
-import './AllCourses.scss';
+import './MyCourses.scss';
 
 import { datetime } from '../../../utils/datetime';
 
-const AllCourses = (props) => {
+
+import CreateCourseDialog from "../../CreateCourseDialog";
+import UpdateCourseDialog from "../../UpdateCourseDialog";
+
+const MyCourses = (props) => {
     const [error, setError] = useState(null);
     const [appCourses, updateCourses] = useState([]);
+
+    const [selectedCourses, setSelectedCourses] = useState(null)
+
+    const [updateCourseDialogOpened, setUpdateCourseDialogOpened] = useState(false);
 
     const userContext = useContext(UserContext);
     const loggedUser = userContext.user;
 
     const userIsTeacher = loggedUser.role === 'Teacher';
 
-    const fetchCourses = useCallback( () => fetch(`${BASE_URL}/courses`, {   // fetch all courses here
+    const fetchCourses = useCallback( () => fetch(`${BASE_URL}/courses`, {
       headers: {
           Authorization: `Bearer ${localStorage.getItem('token') || ''}`,
       }
@@ -47,22 +54,9 @@ const AllCourses = (props) => {
       fetchCourses()
     , []);
 
-    const handleEnrollCourse = (courseId) => {
-      console.log("Enroll", courseId);
-
-      fetch(`${BASE_URL}/courses/enroll/${courseId}`, {  // Test when having all courses
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${localStorage.getItem('token') || ''}`
-        },
-        body: JSON.stringify({}),
-      })
-        .then(r => r.json())
-        .then(result => {
-          console.log('Enroll course', result);
-        })
-        .catch(alert);
+    const onCourseUpdate = () => {
+      setUpdateCourseDialogOpened(false);
+      fetchCourses()
     }
 
 
@@ -76,12 +70,13 @@ const AllCourses = (props) => {
         );
     }
 
+    // const neww = sortBooks(appBooks);
      console.log("All Courses", appCourses);
 
     return (
       <div className="courses-wrapper">
         {appCourses.map((course, key) =>
-          <Card key={course.id} sx={{
+          <Card onClick={() => setSelectedCourses(course)} key={course.id} sx={{
             marginBottom: "20px"
         }}>
             <CardContent>
@@ -104,12 +99,15 @@ const AllCourses = (props) => {
               </Typography>
             </CardContent>
             <CardActions>
-              {userIsTeacher && <Button size="small" onClick={() => handleEnrollCourse(course.id)}>Join</Button>}
+              {userIsTeacher && <Button size="small" onClick={() => setUpdateCourseDialogOpened(true)}>Edit</Button>}
             </CardActions>
           </Card>
         )}
+        <div className="add-button"><CreateCourseDialog onSubmit={()=>fetchCourses()} /></div>
+        {updateCourseDialogOpened && !_.isNil(selectedCourses) &&
+          <UpdateCourseDialog open onClose={() => setUpdateCourseDialogOpened(false)} course={selectedCourses} onSubmit={onCourseUpdate}/>}
       </div>
     );
 };
 
-export default AllCourses;
+export default MyCourses;
