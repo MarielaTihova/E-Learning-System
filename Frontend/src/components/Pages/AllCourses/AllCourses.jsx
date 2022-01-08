@@ -1,7 +1,6 @@
 import _ from 'lodash'
 
 import React, { useEffect, useState, useContext, useCallback} from "react";
-import { withRouter } from 'react-router-dom';
 
 import Stack from '@mui/material/Stack';
 import Card from '@mui/material/Card';

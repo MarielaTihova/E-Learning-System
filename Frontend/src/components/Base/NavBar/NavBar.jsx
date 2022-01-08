@@ -94,8 +94,8 @@ const NavBar = (props) => {
                 </MDBNavItem>
               }
               {loggedUser !== null &&
-                <MDBNavItem onClick={()=>setActiveTab("myCourses")} active={activeTab === "myCourses"}>
-                  <MDBNavLink to='/courses'>My Courses</MDBNavLink>
+                <MDBNavItem onClick={()=>setActiveTab("my-courses")} active={activeTab === "my-courses"}>
+                  <MDBNavLink to='/my-courses'>My Courses</MDBNavLink>
                 </MDBNavItem>
               }
               {loggedUser &&  loggedUser.role === 'Student' &&  <MDBNavItem classNamw="allCourses" onClick={()=>setActiveTab("allCourses")} active={activeTab === "allCourses"}>
