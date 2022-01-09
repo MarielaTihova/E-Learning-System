@@ -1,10 +1,11 @@
-import { BadRequestException, Body, Controller, Get, HttpCode, HttpStatus, Param, Patch, Post, Put, UseGuards } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Get, HttpCode, HttpStatus, Param, Patch, Post, Put, Query, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { BlacklistGuard } from 'src/auth/blacklist.guard';
 import { RolesGuard } from 'src/auth/roles.guard';
 import { UserId } from 'src/auth/user-id.decorator';
 import { CreateCourseDTO } from 'src/dtos/courses/create-course.dto';
 import { Course } from 'src/models/course.entity';
+import { CourseUserFilter } from 'src/models/enums/course-user-filter';
 import { UserRole } from 'src/models/enums/user-role';
 import { User } from 'src/models/user.entity';
 import { CoursesService } from 'src/services/courses.service';
@@ -20,8 +21,14 @@ export class CoursesController {
     ) { }
 
     @Get()
-    async getAllCourses(@UserId() userId: number): Promise<Course[]> {
-        return await this.coursesService.getAllCourses(userId);
+    async getAllCourses(@UserId() userId: number, @Query('userFilter') filter: string): Promise<Course[]> {
+        if (filter && +filter === CourseUserFilter.LoggedUser) {
+            return await this.coursesService.getMyCourses(userId);
+        } else {
+            // no filter, filter = 'all', filter= <any other (wrong) value>, 
+            // just skip it and return all courses
+            return await this.coursesService.getAllCourses();
+        }
     }
 
     @UseGuards(BlacklistGuard, new RolesGuard(UserRole.Teacher))

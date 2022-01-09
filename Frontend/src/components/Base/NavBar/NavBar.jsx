@@ -82,28 +82,28 @@ const NavBar = (props) => {
           <MDBNavbarToggler onClick={() => handleTogglerClick()} />
           <MDBCollapse isOpen={collapseID} navbar>
             <MDBNavbarNav left>
-              {loggedUser && <MDBNavItem onClick={()=>setActiveTab("home")} active={activeTab === "home"}>
+              {loggedUser && <MDBNavItem onClick={() => setActiveTab("home")} active={activeTab === "home"}>
                 <MDBNavLink to='/home' >Home</MDBNavLink>
               </MDBNavItem>}
-              {!loggedUser &&  <MDBBtn href='/login' rounded className='login btn-purple'>
+              {!loggedUser && <MDBBtn href='/login' rounded className='login btn-purple'>
                 Login
-            </MDBBtn>}
+              </MDBBtn>}
               {loggedUser !== null &&
-                <MDBNavItem  onClick={()=>setActiveTab("profile")} active={activeTab === "profile"}>
+                <MDBNavItem onClick={() => setActiveTab("profile")} active={activeTab === "profile"}>
                   <MDBNavLink to='/profile'>Profile</MDBNavLink>
                 </MDBNavItem>
               }
               {loggedUser !== null &&
-                <MDBNavItem onClick={()=>setActiveTab("my-courses")} active={activeTab === "my-courses"}>
+                <MDBNavItem onClick={() => setActiveTab("my-courses")} active={activeTab === "my-courses"}>
                   <MDBNavLink to='/my-courses'>My Courses</MDBNavLink>
                 </MDBNavItem>
               }
-              {loggedUser &&  loggedUser.role === 'Student' &&  <MDBNavItem classNamw="allCourses" onClick={()=>setActiveTab("allCourses")} active={activeTab === "allCourses"}>
-              <MDBNavLink to='/all-courses'>All Courses</MDBNavLink>
-            </MDBNavItem>
-            }
+              {loggedUser && loggedUser.role === 'Student' && <MDBNavItem className="allCourses" onClick={() => setActiveTab("allCourses")} active={activeTab === "allCourses"}>
+                <MDBNavLink to='/all-courses'>All Courses</MDBNavLink>
+              </MDBNavItem>
+              }
             </MDBNavbarNav>
-          { /* {loggedUser !== null ?
+            { /* {loggedUser !== null ?
 
               <MDBNavbarNav right>
                 <MDBNavItem>
@@ -131,9 +131,9 @@ const NavBar = (props) => {
 
                       : null}*/}
 
-            {loggedUser &&  <MDBBtn href='/logout' rounded className='login btn-purple'>
-            Logout
-        </MDBBtn>}}
+            {loggedUser && <MDBBtn href='/logout' rounded className='login btn-purple'>
+              Logout
+            </MDBBtn>}}
           </MDBCollapse>
         </MDBContainer>
       </MDBNavbar>
