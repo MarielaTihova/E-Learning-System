@@ -34,25 +34,21 @@ const MyCourses = (props) => {
 
     const userIsTeacher = loggedUser.role === 'Teacher';
 
-    const fetchCourses = useCallback( () => fetch(`${BASE_URL}/courses`, {
-      headers: {
-          Authorization: `Bearer ${localStorage.getItem('token') || ''}`,
-      }
-  })
-      .then((response) => response.json())
-      .then((result) => {
-          if (Array.isArray(result)) {
-              console.log(result);
-              updateCourses(result);
-          } else {
-              throw new Error(result.message);
-          }
+    const fetchCourses = useCallback( async () => {
+      let response = await fetch(`${BASE_URL}/courses`, {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem('token') || ''}`,
+        }
       })
-      .catch((error) => setError(error.message)), [])
+      response = await response.json()
 
-    useEffect(() =>
+      updateCourses(response);
+
+    }, [])
+
+    useEffect(() => {
       fetchCourses()
-    , []);
+    }, [fetchCourses]);
 
     const onCourseUpdate = () => {
       setUpdateCourseDialogOpened(false);
