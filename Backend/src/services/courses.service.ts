@@ -17,15 +17,18 @@ export class CoursesService {
         private readonly usersService: UsersService
     ) { }
 
-    async getAllCourses(userId: number): Promise<Course[]> {
+    async getAllCourses() {
+        return await this.coursesRepository.find({
+            relations: ['participants']
+        });
+    }
+
+    async getMyCourses(userId: number): Promise<Course[]> {
         const loggedUser: User = await this.usersService.getUserById(userId);
         const allCourses: Course[] = await (await this.coursesRepository.find({
             relations: ['participants']
         }));
-        return loggedUser.role === UserRole.Admin ? allCourses : allCourses.filter((course: Course) => course.participants.find((user: User) => user.id === loggedUser.id));
-        // return await (await this.coursesRepository.find({
-        //     relations: ['participants']
-        // })).filter((course: Course) => course.participants.find((user: User) => user.id === loggedUser.id));
+        return allCourses.filter((course: Course) => course.participants.find((user: User) => user.id === loggedUser.id));
     }
 
     async getCourseById(courseId: number): Promise<Course> {
@@ -64,15 +67,15 @@ export class CoursesService {
     async editCourse(courseId: number, newData: CreateCourseDTO, userId: number) {
         const loggedUser: User = await this.usersService.getUserById(userId);
         const course: Course = await this.getCourseById(courseId);
-        const canEdit: boolean = loggedUser.role === UserRole.Admin || 
-        (loggedUser.role === UserRole.Teacher && !!course.participants.find((p: User) => p.id === userId));
+        const canEdit: boolean = loggedUser.role === UserRole.Admin ||
+            (loggedUser.role === UserRole.Teacher && !!course.participants.find((p: User) => p.id === userId));
         if (canEdit) {
             course.name = newData.name;
             course.description = newData.description;
             course.startTime = newData.startTime;
             course.endTime = newData.endTime;
             course.dayOfWeek = newData.dayOfWeek;
-    
+
             return this.coursesRepository.save(course);
         } else {
             throw new BadRequestException('To edit a course, you have to be its teacher or have admin rights!');

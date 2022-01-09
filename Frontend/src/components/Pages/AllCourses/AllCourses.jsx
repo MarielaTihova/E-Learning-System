@@ -1,7 +1,6 @@
 import _ from 'lodash'
 
 import React, { useEffect, useState, useContext, useCallback} from "react";
-import { withRouter } from 'react-router-dom';
 
 import Stack from '@mui/material/Stack';
 import Card from '@mui/material/Card';
@@ -18,46 +17,47 @@ import './AllCourses.scss';
 
 import { datetime } from '../../../utils/datetime';
 
-
-import CreateCourseDialog from "../../CreateCourseDialog";
-import UpdateCourseDialog from "../../UpdateCourseDialog";
-
 const AllCourses = (props) => {
     const [error, setError] = useState(null);
     const [appCourses, updateCourses] = useState([]);
-
-    const [selectedCourses, setSelectedCourses] = useState(null)
-
-    const [updateCourseDialogOpened, setUpdateCourseDialogOpened] = useState(false);
 
     const userContext = useContext(UserContext);
     const loggedUser = userContext.user;
 
     const userIsTeacher = loggedUser.role === 'Teacher';
 
-    const fetchCourses = useCallback( () => fetch(`${BASE_URL}/courses`, {
-      headers: {
-          Authorization: `Bearer ${localStorage.getItem('token') || ''}`,
-      }
-  })
-      .then((response) => response.json())
-      .then((result) => {
-          if (Array.isArray(result)) {
-              console.log(result);
-              updateCourses(result);
-          } else {
-              throw new Error(result.message);
-          }
+    const fetchCourses = useCallback( async () => {
+      let response = await fetch(`${BASE_URL}/courses`, {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem('token') || ''}`,
+        }
       })
-      .catch((error) => setError(error.message)), [])
+      response = await response.json()
 
-    useEffect(() =>
-      fetchCourses()
-    , []);
+      updateCourses(response);
 
-    const onCourseUpdate = () => {
-      setUpdateCourseDialogOpened(false);
+    }, [])
+
+    useEffect(() => {
       fetchCourses()
+    }, [fetchCourses]);
+
+    const handleEnrollCourse = (courseId) => {
+      console.log("Enroll", courseId);
+
+      fetch(`${BASE_URL}/courses/enroll/${courseId}`, {  // Test when having all courses
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('token') || ''}`
+        },
+        body: JSON.stringify({}),
+      })
+        .then(r => r.json())
+        .then(result => {
+          console.log('Enroll course', result);
+        })
+        .catch(alert);
     }
 
 
@@ -71,13 +71,12 @@ const AllCourses = (props) => {
         );
     }
 
-    // const neww = sortBooks(appBooks);
      console.log("All Courses", appCourses);
 
     return (
       <div className="courses-wrapper">
         {appCourses.map((course, key) =>
-          <Card onClick={() => setSelectedCourses(course)} key={course.id} sx={{
+          <Card key={course.id} sx={{
             marginBottom: "20px"
         }}>
             <CardContent>
@@ -100,15 +99,12 @@ const AllCourses = (props) => {
               </Typography>
             </CardContent>
             <CardActions>
-              {userIsTeacher && <Button size="small" onClick={() => setUpdateCourseDialogOpened(true)}>Edit</Button>}
+              {userIsTeacher && <Button size="small" onClick={() => handleEnrollCourse(course.id)}>Join</Button>}
             </CardActions>
           </Card>
         )}
-        <div className="add-button"><CreateCourseDialog onSubmit={()=>fetchCourses()} /></div>
-        {updateCourseDialogOpened && !_.isNil(selectedCourses) &&
-          <UpdateCourseDialog open onClose={() => setUpdateCourseDialogOpened(false)} course={selectedCourses} onSubmit={onCourseUpdate}/>}
       </div>
     );
 };
 
-export default withRouter(AllCourses);
+export default AllCourses;

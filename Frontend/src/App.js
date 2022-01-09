@@ -6,9 +6,9 @@ import SignIn from "./components/Pages/SignIn/SignIn2/SignIn2";
 import UserContext, { getLoggedUser } from "./providers/UserContext";
 import ShowProfile from "./components/Users/ShowProfile";
 import "./theme.css"
-import Footer from "./components/Base/Footer";
 import NavBar from "./components/Base/NavBar/NavBar";
-import AllCourses from "./components/Courses/AllCourses/AllCourses";
+import MyCourses from "./components/Pages/MyCourses/MyCourses";
+import AllCourses from "./components/Pages/AllCourses/AllCourses";
 
 
 const App = () => {
@@ -31,7 +31,8 @@ const App = () => {
             <Route path="/login" exact component={SignIn} />
             <Route path="/register" exact component={SignIn} />
             <Route path="/logout" exact component={SignIn} />
-            <Route path="/courses" exact component={AllCourses} />
+            <Route path="/my-courses" exact component={MyCourses} />
+            <Route path="/all-courses" exact component={AllCourses} />
             <Route path="*" component={NotFound} />
           </Switch>
         </UserContext.Provider>
