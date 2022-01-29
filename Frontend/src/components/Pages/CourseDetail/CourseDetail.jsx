@@ -33,25 +33,32 @@ const testTasks = [
     id: "courseTaskIdasjf'sadf'nf",
     description: "What Would You Rather Throw Away: Love Or Money?",
     availableFrom: "2022-01-19T14:44:35.912Z",
-    availableTo: "2022-01-10T14:44:35.912Z"
+    availableTo: "2022-01-10T14:44:35.912Z",
+    answers: [
+      {id: "some id here", studentName: "Bogi", answer: "Money for sure!"},
+      {id: "some id here", studentName: "Toni", answer: "Love, I just love my money!"},
+    ]
   },
   {
     id: "courseTaskIdasjjjjsadf'nf",
     description: "What Was Your Fondest Memory Of High School?",
     availableFrom: "2022-01-04T14:44:35.912Z",
-    availableTo: "2022-01-10T14:44:35.912Z"
+    availableTo: "2022-01-10T14:44:35.912Z",
+    answers: []
   },
   {
     id: "courseTaskIdasaaaaadf'nf",
     description: "If You Had Three Wishes, What Would You Wish For?",
     availableFrom: "2022-01-14T14:44:35.912Z",
-    availableTo: "2022-02-14T14:44:35.912Z"
+    availableTo: "2022-02-14T14:44:35.912Z",
+    answers: []
   },
   {
     id: "courseTaskIdasjf'sadfwwwwwwwwww",
     description: "What's The Most Beautiful Place You've Ever Seen?",
     availableFrom: "2022-01-09T14:44:35.912Z",
-    availableTo: "2022-01-22T14:44:35.912Z"
+    availableTo: "2022-01-22T14:44:35.912Z",
+    answers: []
   }
 ]
 
@@ -59,6 +66,7 @@ const CourseDetail = (props) => {
   const [error, setError] = useState(null);
   const [courseTasks, setCourseTasks] = useState([]);
   const [inputToDisplay, setInputToDisplay] = useState(null)
+  const [showTaskAnswers, setShowTaskAnswers] = useState(null)
 
   const [selectedTask, setSelectedTask] = useState(null)
 
@@ -96,7 +104,7 @@ const CourseDetail = (props) => {
     // }, [fetchCourses]);
 
     const initialValues = {
-      description: ''
+      answer: ''
     }
 
     const handleSubmit = (values) => {
@@ -169,7 +177,7 @@ const CourseDetail = (props) => {
                     multiline
                     rows={4}
                     margin="dense"
-                    id="description"
+                    id="answer"
                     label="Answer"
                     type="text"
                     fullWidth
@@ -182,7 +190,27 @@ const CourseDetail = (props) => {
           </CardContent>
 
           <CardActions>
-            {userIsTeacher && _.isNull(inputToDisplay) && <Button size="small" onClick={() => console.log("task delete")}>Delete</Button>}
+            {userIsTeacher && (_.isNull(showTaskAnswers) || showTaskAnswers !== task.id) && <>
+              <Button size="small" onClick={() => console.log("task delete")}>Delete</Button>
+              <Button size="small" onClick={() =>setShowTaskAnswers(task.id)}>View answers</Button>
+
+            </>}
+            {userIsTeacher && !_.isNull(showTaskAnswers) && showTaskAnswers === task.id &&
+              <>
+              <Stack>
+                {_.isEmpty(task.answers) ? <Typography  variant="subtitle2" >Currently no answers</Typography> : task.answers.map((answer) =>
+                  <Stack key={answer.id} sx={{
+                    "flexDirection": "row",
+
+                  }}>
+                  <Typography  variant="subtitle2">{answer.studentName}:</Typography>
+                  <Typography>{answer.answer}</Typography>
+                </Stack>
+                )}
+              <Button size="small" onClick={() =>setShowTaskAnswers(null)}>Hide answers</Button>
+            </Stack>
+            </>
+            }
             {!userIsTeacher && _.isNull(inputToDisplay) &&  <Button size="small" onClick={() =>  {setInputToDisplay(task.id); setSelectedTask(task.id)}}>Answer</Button>}
 
           </CardActions>
