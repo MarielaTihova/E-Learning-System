@@ -23,8 +23,7 @@ import { datetime } from '../../../utils/datetime';
 
 import { BASE_URL } from "../../../common/constants";
 
-import CreateCourseDialog from "../../CreateCourseDialog";
-import UpdateCourseDialog from "../../UpdateCourseDialog";
+import AddTaskDialog from "../../AddTaskDialog";
 
 const testTasks = [
   {
@@ -183,7 +182,7 @@ const CourseDetail = (props) => {
 
         </Card>
       )}
-      <div className="add-button"><CreateCourseDialog onSubmit={() => console.log("pass")} /></div>
+      {userIsTeacher && <div className="add-button"><AddTaskDialog onSubmit={() => console.log("pass")} courseId ={courseId} /></div>}
 
     </div>
   );
