@@ -25,6 +25,8 @@ const MyCourses = (props) => {
   const [error, setError] = useState(null);
   const [appCourses, updateCourses] = useState([]);
 
+  const history = props.history;
+
   const [selectedCourses, setSelectedCourses] = useState(null)
 
   const [updateCourseDialogOpened, setUpdateCourseDialogOpened] = useState(false);
@@ -33,6 +35,7 @@ const MyCourses = (props) => {
   const loggedUser = userContext.user;
 
   const userIsTeacher = loggedUser.role === 'Teacher';
+  console.log(userIsTeacher, "userIsTeacher");
 
   const fetchCourses = useCallback(async () => {
     let response = await fetch(`${BASE_URL}/courses?userFilter=2`, {
@@ -71,7 +74,8 @@ const MyCourses = (props) => {
 
   return (
     <div className="courses-wrapper">
-      {appCourses.map((course, key) =>
+      {_.isEmpty(appCourses) ? <Typography textAlign="center">You have no courses!</Typography> :
+      appCourses.map((course, key) =>
         <Card onClick={() => setSelectedCourses(course)} key={course.id} sx={{
           marginBottom: "20px"
         }}>
@@ -96,10 +100,11 @@ const MyCourses = (props) => {
           </CardContent>
           <CardActions>
             {userIsTeacher && <Button size="small" onClick={() => setUpdateCourseDialogOpened(true)}>Edit</Button>}
+            <Button size="small" onClick={() => history.push(`/course-detail?courseId=${course.id}`)}>View tasks</Button>
           </CardActions>
         </Card>
       )}
-      <div className="add-button"><CreateCourseDialog onSubmit={() => fetchCourses()} /></div>
+      {userIsTeacher && <div className="add-button"><CreateCourseDialog onSubmit={() => fetchCourses()} /></div>}
       {updateCourseDialogOpened && !_.isNil(selectedCourses) &&
         <UpdateCourseDialog open onClose={() => setUpdateCourseDialogOpened(false)} course={selectedCourses} onSubmit={onCourseUpdate} />}
     </div>

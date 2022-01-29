@@ -99,7 +99,7 @@ const AllCourses = (props) => {
               </Typography>
             </CardContent>
             <CardActions>
-              {userIsTeacher && <Button size="small" onClick={() => handleEnrollCourse(course.id)}>Join</Button>}
+              {!userIsTeacher && <Button size="small" onClick={() => handleEnrollCourse(course.id)}>Join</Button>}
             </CardActions>
           </Card>
         )}
