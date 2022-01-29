@@ -53,7 +53,6 @@ const AddTaskDialog = ({onSubmit, courseId}) => {
     onSubmit: handleSubmit
   });
 
-
   return (
     <div>
       <Button variant="outlined" onClick={handleClickOpen}>

@@ -34,7 +34,8 @@ const Home = () => {
   return (
     <div id='caltoaction'>
 
-      {!loggedUser ?
+      {!loggedUser &&
+
         <MDBView src='  https://mdbootstrap.com/img/Photos/Others/gradient3.png'>
           {/* <MDBView src='http://mdbootstrap.com/img/Photos/Others/images/91.jpg'> */}
           <MDBMask className='rgba-purple-slight ' />
@@ -65,16 +66,7 @@ const Home = () => {
             </a>
           </MDBContainer>
         </MDBView>
-        :  <div>
-            <p>Home Page for {loggedUser.username}</p>
-            <p> MIMI</p>
-            <p> MIMI</p>
-            <p> MIMI</p>
-            <p> MIMI</p>
-        </div>
-    }
-
-
+        }
 
     </div >
 
