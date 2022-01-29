@@ -13,7 +13,8 @@ import InputLabel from '@mui/material/InputLabel';
 
 import { BASE_URL, DAYS_OF_THE_WEEK_CHOICES } from "../../common/constants";
 
-import jwtDecode from 'jwt-decode';
+import {toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import { useFormik } from 'formik';
 
@@ -50,6 +51,10 @@ const CreateCourseDialog = ({onSubmit}) => {
       .then(r => r.json())
       .then(result => {
         console.log('Course created', result);
+
+        toast.configure();
+        toast('Course created successfully!',{position: toast.POSITION.TOP_RIGHT});
+
         setOpen(false);
         onSubmit();
       })

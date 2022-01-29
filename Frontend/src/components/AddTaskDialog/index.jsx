@@ -11,6 +11,9 @@ import { BASE_URL } from "../../common/constants";
 import { useFormik } from 'formik';
 import {datetime} from '../../utils/datetime';
 
+import {toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const AddTaskDialog = ({onSubmit, courseId}) => {
   const [open, setOpen] = React.useState(false);
 
@@ -42,6 +45,9 @@ const AddTaskDialog = ({onSubmit, courseId}) => {
       .then(r => r.json())
       .then(result => {
         console.log('Task created', result);
+        toast.configure();
+        toast('Task created successfully!',{position: toast.POSITION.TOP_RIGHT});
+
         setOpen(false);
         onSubmit();
       })

@@ -120,7 +120,7 @@ const SignIn = (props) => {
         }
 
         localStorage.setItem('token', result.token);
-        history.push('/home');
+        history.push('/profile');
       })
       .catch(alert); // (...rest) => alert(...rest);
   };

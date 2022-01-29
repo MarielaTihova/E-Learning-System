@@ -6,6 +6,9 @@ import {useLocation} from "react-router"
 
 import queryString from 'query-string';
 
+import {toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import Stack from '@mui/material/Stack';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -111,6 +114,10 @@ const CourseDetail = (props) => {
         .then(r => r.json())
         .then(result => {
           console.log('added new answer', result);
+
+          toast.configure();
+          toast('Successfuly added answer!',{position: toast.POSITION.TOP_RIGHT});
+
           setInputToDisplay(null);
         })
         .catch(alert);
