@@ -17,6 +17,9 @@ import './AllCourses.scss';
 
 import { datetime } from '../../../utils/datetime';
 
+import {toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const AllCourses = (props) => {
     const [error, setError] = useState(null);
     const [appCourses, updateCourses] = useState([]);
@@ -56,6 +59,10 @@ const AllCourses = (props) => {
         .then(r => r.json())
         .then(result => {
           console.log('Enroll course', result);
+
+          toast.configure();
+          toast('Successfuly joined the course!',{position: toast.POSITION.TOP_RIGHT});
+
         })
         .catch(alert);
     }
@@ -99,7 +106,7 @@ const AllCourses = (props) => {
               </Typography>
             </CardContent>
             <CardActions>
-              {userIsTeacher && <Button size="small" onClick={() => handleEnrollCourse(course.id)}>Join</Button>}
+              {!userIsTeacher && <Button size="small" onClick={() => handleEnrollCourse(course.id)}>Join</Button>}
             </CardActions>
           </Card>
         )}

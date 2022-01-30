@@ -9,6 +9,7 @@ import "./theme.css"
 import NavBar from "./components/Base/NavBar/NavBar";
 import MyCourses from "./components/Pages/MyCourses/MyCourses";
 import AllCourses from "./components/Pages/AllCourses/AllCourses";
+import CourseDetail from "./components/Pages/CourseDetail/CourseDetail";
 
 
 const App = () => {
@@ -33,6 +34,7 @@ const App = () => {
             <Route path="/logout" exact component={SignIn} />
             <Route path="/my-courses" exact component={MyCourses} />
             <Route path="/all-courses" exact component={AllCourses} />
+            <Route path="/courses/:courseId" exact component={CourseDetail} />
             <Route path="*" component={NotFound} />
           </Switch>
         </UserContext.Provider>

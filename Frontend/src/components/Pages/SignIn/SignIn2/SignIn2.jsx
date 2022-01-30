@@ -1,18 +1,10 @@
 import React, { useState, useEffect, useContext } from "react";
-import queryString, { ParsedQuery, StringifyOptions } from 'query-string';
+import queryString from 'query-string';
 import _ from "lodash";
 import { useLocation } from "react-router";
-import { BrowserRouter as Router } from "react-router-dom";
 import UserContext from '../../../../providers/UserContext';
 import jwtDecode from 'jwt-decode';
 import {
-  MDBNavbar,
-  MDBNavbarBrand,
-  MDBNavbarNav,
-  MDBNavItem,
-  MDBNavLink,
-  MDBNavbarToggler,
-  MDBCollapse,
   MDBMask,
   MDBRow,
   MDBCol,
@@ -23,12 +15,7 @@ import {
   MDBCard,
   MDBCardBody,
   MDBInput,
-  MDBFormInline,
   MDBAnimation,
-  MDBDropdownMenu,
-  MDBDropdownToggle,
-  MDBDropdown,
-  MDBDropdownItem,
 
 
 } from "mdbreact";
@@ -133,7 +120,7 @@ const SignIn = (props) => {
         }
 
         localStorage.setItem('token', result.token);
-        history.push('/home');
+        history.push('/profile');
       })
       .catch(alert); // (...rest) => alert(...rest);
   };

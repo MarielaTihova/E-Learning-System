@@ -14,9 +14,8 @@ import InputLabel from '@mui/material/InputLabel';
 
 import { BASE_URL, DAYS_OF_THE_WEEK_CHOICES } from "../../common/constants";
 
-import { datetime } from '../../utils/datetime';
-
-import jwtDecode from 'jwt-decode';
+import {toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import { useFormik } from 'formik';
 
@@ -44,6 +43,10 @@ const UpdateCourseDialog = ({ course, open, onClose, onSubmit }) => {
       .then(r => r.json())
       .then(result => {
         console.log('Course updated', result);
+
+        toast.configure();
+        toast('Course updated successfully!',{position: toast.POSITION.TOP_RIGHT});
+
         onSubmit()
       })
       .catch(alert);

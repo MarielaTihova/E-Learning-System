@@ -1,6 +1,7 @@
 import { UserRole } from './enums/user-role';
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany, CreateDateColumn, ManyToMany } from "typeorm";
 import { Course } from './course.entity';
+import { TaskAnswer } from './task-answer.entity';
 
 @Entity('users')
 export class User {
@@ -34,4 +35,7 @@ export class User {
     // Relations
     @ManyToMany(() => Course, course => course.participants)
     courses: Course[];
+
+    @OneToMany(() => TaskAnswer, taskAnswer => taskAnswer.answeredBy)
+    taskAnswers: TaskAnswer[];
 }
