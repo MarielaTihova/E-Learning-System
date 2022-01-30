@@ -75,35 +75,35 @@ const MyCourses = (props) => {
   return (
     <div className="courses-wrapper">
       {_.isEmpty(appCourses) ? <Typography textAlign="center">You have no courses!</Typography> :
-      appCourses.map((course, key) =>
-        <Card onClick={() => setSelectedCourses(course)} key={course.id} sx={{
-          marginBottom: "20px"
-        }}>
-          <CardContent>
-            <Stack sx={{
-              "flexDirection": "row",
-              "justifyContent": "space-between",
-            }}>
-              <Typography>
-                {course.name}
-              </Typography>
-              <Stack>
-                <Typography variant="subtitle2">
-                  {_.find(DAYS_OF_THE_WEEK_CHOICES, ['value', course.dayOfWeek])?.label} from {datetime(course.startTime, 'HH:mm',).format("hh:mm A")} to {datetime(course.endTime, 'HH:mm',).format("hh:mm A")}
-                  {/* Monday from {datetime("12:30:00", 'HH:mm:ss',).format("hh:mm A")} to {datetime("14:00:00", 'HH:mm:ss',).format("hh:mm A")} */}
+        appCourses.map((course, key) =>
+          <Card onClick={() => setSelectedCourses(course)} key={course.id} sx={{
+            marginBottom: "20px"
+          }}>
+            <CardContent>
+              <Stack sx={{
+                "flexDirection": "row",
+                "justifyContent": "space-between",
+              }}>
+                <Typography>
+                  {course.name}
                 </Typography>
+                <Stack>
+                  <Typography variant="subtitle2">
+                    {_.find(DAYS_OF_THE_WEEK_CHOICES, ['value', course.dayOfWeek])?.label} from {datetime(course.startTime, 'HH:mm',).format("hh:mm A")} to {datetime(course.endTime, 'HH:mm',).format("hh:mm A")}
+                    {/* Monday from {datetime("12:30:00", 'HH:mm:ss',).format("hh:mm A")} to {datetime("14:00:00", 'HH:mm:ss',).format("hh:mm A")} */}
+                  </Typography>
+                </Stack>
               </Stack>
-            </Stack>
-            <Typography sx={{ fontSize: 14, marginTop: 5 }} color="text.secondary" gutterBottom>
-              {course.description}
-            </Typography>
-          </CardContent>
-          <CardActions>
-            {userIsTeacher && <Button size="small" onClick={() => setUpdateCourseDialogOpened(true)}>Edit</Button>}
-            <Button size="small" onClick={() => history.push(`/course-detail?courseId=${course.id}`)}>View tasks</Button>
-          </CardActions>
-        </Card>
-      )}
+              <Typography sx={{ fontSize: 14, marginTop: 5 }} color="text.secondary" gutterBottom>
+                {course.description}
+              </Typography>
+            </CardContent>
+            <CardActions>
+              {userIsTeacher && <Button size="small" onClick={() => setUpdateCourseDialogOpened(true)}>Edit</Button>}
+              <Button size="small" onClick={() => history.push(`/courses/${course.id}`)}>View tasks</Button>
+            </CardActions>
+          </Card>
+        )}
       {userIsTeacher && <div className="add-button"><CreateCourseDialog onSubmit={() => fetchCourses()} /></div>}
       {updateCourseDialogOpened && !_.isNil(selectedCourses) &&
         <UpdateCourseDialog open onClose={() => setUpdateCourseDialogOpened(false)} course={selectedCourses} onSubmit={onCourseUpdate} />}

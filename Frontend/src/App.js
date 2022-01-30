@@ -34,7 +34,7 @@ const App = () => {
             <Route path="/logout" exact component={SignIn} />
             <Route path="/my-courses" exact component={MyCourses} />
             <Route path="/all-courses" exact component={AllCourses} />
-            <Route path="/course-detail" exact component={CourseDetail}/>
+            <Route path="/courses/:courseId" exact component={CourseDetail} />
             <Route path="*" component={NotFound} />
           </Switch>
         </UserContext.Provider>

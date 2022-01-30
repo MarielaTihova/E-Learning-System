@@ -1,12 +1,16 @@
-import { BadRequestException, Body, Controller, Get, HttpCode, HttpStatus, Param, Patch, Post, Put, Query, UseGuards } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post, Put, Query, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { BlacklistGuard } from 'src/auth/blacklist.guard';
 import { RolesGuard } from 'src/auth/roles.guard';
 import { UserId } from 'src/auth/user-id.decorator';
 import { CreateCourseDTO } from 'src/dtos/courses/create-course.dto';
+import { CreateTaskDTO } from 'src/dtos/courses/tasks/create-task.dto';
+import { TaskAnswerDTO } from 'src/dtos/courses/tasks/task-answer.dto';
 import { Course } from 'src/models/course.entity';
 import { CourseUserFilter } from 'src/models/enums/course-user-filter';
 import { UserRole } from 'src/models/enums/user-role';
+import { TaskAnswer } from 'src/models/task-answer.entity';
+import { Task } from 'src/models/task.entity';
 import { User } from 'src/models/user.entity';
 import { CoursesService } from 'src/services/courses.service';
 import { UsersService } from 'src/services/users.service';
@@ -47,6 +51,21 @@ export class CoursesController {
     @Put(':courseId')
     async editCourse(@Param('courseId') courseId: string, @Body() newData: CreateCourseDTO, @UserId() userId: string) {
         return await this.coursesService.editCourse(+courseId, newData, +userId);
+    }
+
+    @Post(':courseId/tasks')
+    async createTaskForCourse(@Param('courseId') courseId: string, @Body() taskInfo: CreateTaskDTO): Promise<Task> {
+        return await this.coursesService.createTaskForCourse(+courseId, taskInfo);
+    }
+
+    @Post(':courseId/tasks/:taskId')
+    async answerTask(@Param('courseId') courseId: string, @Param('taskId') taskId: string, @UserId() userId: string, @Body() answer: TaskAnswerDTO): Promise<TaskAnswer> {
+        return await this.coursesService.answerTask(+courseId, +taskId, +userId, answer);
+    }
+
+    @Delete(':courseId/tasks/:taskId')
+    async deleteTask(@Param('courseId') courseId: string, @Param('taskId') taskId: string): Promise<string> {
+        return await this.coursesService.deleteCourseTask(+courseId, +taskId);
     }
 
 

@@ -40,10 +40,6 @@ export class UsersService {
                 id: "ASC"
             },
             relations: ['courses']
-            // relations: ['booksBorrowed', 'bookVotes', 'bookRatings', 'bookRatings.madeBy',
-            //     'bookVotes.reviewVotedFor', 'bookRatings.bookName', 'bookRatings.bookName.name',
-            //     'bookReviews', 'bookReviews.madeBy', 'bookReviews.votes', 'bookReviews.votes.madeBy',
-            //     'booksBorrowedHistory', 'bookReviews.bookName']
         });
 
         return users.filter(user => user.isDeleted === false);
@@ -53,10 +49,6 @@ export class UsersService {
         const user = await this.usersRepository.findOne(id, {
             where: { isDeleted: false },
             relations: ['courses']
-            // relations: ['booksBorrowed', 'bookVotes', 'bookRatings', 'bookRatings.madeBy',
-            //     'bookVotes.reviewVotedFor', 'bookRatings.bookName',
-            //     'bookReviews', 'bookReviews.madeBy', 'bookReviews.votes', 'bookReviews.votes.madeBy',
-            //     'booksBorrowedHistory', 'bookReviews.bookName']
 
         });
         if (!user) {

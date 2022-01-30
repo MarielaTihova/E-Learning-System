@@ -1,9 +1,8 @@
 import { User } from './user.entity';
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany, ManyToMany, JoinTable, CreateDateColumn } from "typeorm";
-import { start } from 'repl';
 // import { CourseSchedule } from './course-schedule.entity';
 import { DayOfWeek } from './enums/day-of-week';
-// import { Student } from './student.entity';
+import { Task } from './task.entity';
 
 @Entity('courses')
 export class Course {
@@ -19,8 +18,7 @@ export class Course {
 
     // @Column()
     // materials: any[]; // Files with meterials
-    // @Column()
-    // tasks: any[];
+
     // @Column()
     // tests: any[];
 
@@ -33,7 +31,7 @@ export class Course {
     @Column()
     endTime: string;
 
-    @Column({ type: 'enum', enum: DayOfWeek})
+    @Column({ type: 'enum', enum: DayOfWeek })
 
     dayOfWeek: DayOfWeek;
 
@@ -41,4 +39,7 @@ export class Course {
     @ManyToMany(() => User, user => user.courses)
     @JoinTable()
     participants: User[];
+
+    @OneToMany(() => Task, task => task.course)
+    tasks: Task[];
 } 

@@ -11,10 +11,11 @@ import { jwtConstants } from 'src/constant/secret';
 import { AuthService } from './auth.service';
 import { CoursesService } from './courses.service';
 import { Course } from 'src/models/course.entity';
-// import { CourseSchedule } from 'src/models/course-schedule.entity';
+import { Task } from 'src/models/task.entity';
+import { TaskAnswer } from 'src/models/task-answer.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([User, Token, Course]),
+  imports: [TypeOrmModule.forFeature([User, Token, Course, Task, TaskAnswer]),
     PassportModule,
   JwtModule.register({
     secret: jwtConstants.secret,

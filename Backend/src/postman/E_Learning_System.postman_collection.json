@@ -60,43 +60,6 @@
 			"response": []
 		},
 		{
-			"name": "Create Course",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJ0ZWFjaGVyMSIsInBlcnNvbmFsTmFtZSI6IlRlYWNoZXIgVXNlciIsInJvbGUiOiJTdHVkZW50IiwicmVnaXN0ZXJEYXRlIjoiMjAyMS0xMi0xOVQxNzoxMTozMi43MTZaIiwiaWF0IjoxNjM5OTM0MDA3LCJleHAiOjE2NDA1Mzg4MDd9.aXvWJuzhqnG3aJBf8ai8tk_YKtqtZOt8V-RbZcAdpb4",
-							"type": "string"
-						}
-					]
-				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"Test Course\",\r\n    \"description\": \"Test\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "localhost:3000/create-course",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"create-course"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "Get All Courses",
 			"request": {
 				"auth": {
@@ -104,7 +67,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJ0ZWFjaGVyMSIsInBlcnNvbmFsTmFtZSI6IlRlYWNoZXIgVXNlciIsInJvbGUiOiJTdHVkZW50IiwicmVnaXN0ZXJEYXRlIjoiMjAyMS0xMi0xOVQxNzoxMTozMi43MTZaIiwiaWF0IjoxNjM5OTM0MDA3LCJleHAiOjE2NDA1Mzg4MDd9.aXvWJuzhqnG3aJBf8ai8tk_YKtqtZOt8V-RbZcAdpb4",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwidXNlcm5hbWUiOiJtYXJpZWxhX3N0dWRlbnQiLCJwZXJzb25hbE5hbWUiOiJNYXJpZWxhIFRpaG92YSIsInJvbGUiOiJTdHVkZW50IiwicmVnaXN0ZXJEYXRlIjoiMjAyMS0xMi0xOVQyMjoxMzozMy41ODhaIiwiaWF0IjoxNjQxNzU1OTE2LCJleHAiOjE2NDIzNjA3MTZ9.xQaYQUJKETC0xNiVsgBrQckDwNHFkecEW2QtL6KdLIY",
 							"type": "string"
 						}
 					]
@@ -112,13 +75,19 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:3000/courses",
+					"raw": "localhost:3000/courses?userFilter=2",
 					"host": [
 						"localhost"
 					],
 					"port": "3000",
 					"path": [
 						"courses"
+					],
+					"query": [
+						{
+							"key": "userFilter",
+							"value": "2"
+						}
 					]
 				}
 			},
@@ -148,6 +117,61 @@
 					"path": [
 						"courses",
 						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Course",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbWUiOiJ0ZWFjaGVyMiIsInBlcnNvbmFsTmFtZSI6IlRlYWNoZXIgVXNlciAyIiwicm9sZSI6IlRlYWNoZXIiLCJyZWdpc3RlckRhdGUiOiIyMDIxLTEyLTE5VDE3OjUzOjEzLjA2NloiLCJpYXQiOjE2NDEyMjEwOTIsImV4cCI6MTY0MTgyNTg5Mn0.wO2FAz2tgmavRymMzWH0jgV_NU6GsTUa_JF_WfLFTTE",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"English\",\r\n    \"description\": \"English language- Level B2+\",\r\n    \"startTime\": \"16:00 PM\",\r\n    \"endTime\": \"17:30 PM\",\r\n    \"dayOfWeek\": 4\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/courses",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"courses"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit Course",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/courses",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"courses"
 					]
 				}
 			},
@@ -227,10 +251,61 @@
 		{
 			"name": "Enroll Student in Course",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbWUiOiJ0ZWFjaGVyMiIsInBlcnNvbmFsTmFtZSI6IlRlYWNoZXIgVXNlciAyIiwicm9sZSI6IlRlYWNoZXIiLCJyZWdpc3RlckRhdGUiOiIyMDIxLTEyLTE5VDE3OjUzOjEzLjA2NloiLCJpYXQiOjE2Mzk5NTE2NzAsImV4cCI6MTY0MDU1NjQ3MH0.oDtUIQlXn1cYTgFtVdERNt8bJ3R6vVxnvtYpk9VFOOI",
+							"type": "string"
+						}
+					]
+				},
 				"method": "PUT",
 				"header": [],
 				"url": {
-					"raw": "localhost:3000/courses/5/students/5",
+					"raw": "localhost:3000/courses/enroll/6/students/6",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"courses",
+						"enroll",
+						"6",
+						"students",
+						"6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Task for Course",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwidXNlcm5hbWUiOiJtYXJpZWxhX3N0dWRlbnQiLCJwZXJzb25hbE5hbWUiOiJNYXJpZWxhIFRpaG92YSIsInJvbGUiOiJTdHVkZW50IiwicmVnaXN0ZXJEYXRlIjoiMjAyMS0xMi0xOVQyMjoxMzozMy41ODhaIiwiaWF0IjoxNjQzNTY5Mjc2LCJleHAiOjE2NDQxNzQwNzZ9.UUCwQs7vau456E0NrXjMaO4slGv3H1t0_74peX4tPB8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"description\": \"Why is JavaScript so popular?\",\r\n    \"availableFrom\": \"2022-02-07 10:00 PM\",\r\n    \"availableTo\": \"2022-02-15 10:00 PM\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/courses/5/tasks",
 					"host": [
 						"localhost"
 					],
@@ -238,9 +313,30 @@
 					"path": [
 						"courses",
 						"5",
-						"students",
-						"5"
+						"tasks"
 					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Answer Task",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Task",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
 				}
 			},
 			"response": []

@@ -1,9 +1,13 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateCourseDTO } from 'src/dtos/courses/create-course.dto';
+import { CreateTaskDTO } from 'src/dtos/courses/tasks/create-task.dto';
+import { TaskAnswerDTO } from 'src/dtos/courses/tasks/task-answer.dto';
 // import { CourseSchedule } from 'src/models/course-schedule.entity';
 import { Course } from 'src/models/course.entity';
 import { UserRole } from 'src/models/enums/user-role';
+import { TaskAnswer } from 'src/models/task-answer.entity';
+import { Task } from 'src/models/task.entity';
 import { User } from 'src/models/user.entity';
 import { Repository } from "typeorm";
 import { UsersService } from './users.service';
@@ -12,6 +16,8 @@ import { UsersService } from './users.service';
 export class CoursesService {
     constructor(
         @InjectRepository(Course) private readonly coursesRepository: Repository<Course>,
+        @InjectRepository(Task) private readonly tasksRepository: Repository<Task>,
+        @InjectRepository(TaskAnswer) private readonly answersRepository: Repository<TaskAnswer>,
         @InjectRepository(User) private readonly usersRepository: Repository<User>,
         // @InjectRepository(CourseSchedule) private readonly courseScheduleRepository: Repository<CourseSchedule>,
         private readonly usersService: UsersService
@@ -19,14 +25,14 @@ export class CoursesService {
 
     async getAllCourses() {
         return await this.coursesRepository.find({
-            relations: ['participants']
+            relations: ['participants', 'tasks']
         });
     }
 
     async getMyCourses(userId: number): Promise<Course[]> {
         const loggedUser: User = await this.usersService.getUserById(userId);
         const allCourses: Course[] = await (await this.coursesRepository.find({
-            relations: ['participants']
+            relations: ['participants', 'tasks']
         }));
         return allCourses.filter((course: Course) => course.participants.find((user: User) => user.id === loggedUser.id));
     }
@@ -34,7 +40,7 @@ export class CoursesService {
     async getCourseById(courseId: number): Promise<Course> {
         return await this.coursesRepository.findOne({
             where: { id: courseId },
-            relations: ['participants']
+            relations: ['participants', 'tasks']
         });
     }
 
@@ -96,4 +102,52 @@ export class CoursesService {
         return await this.coursesRepository.save(course);
     }
 
+    // Tasks
+    async createTaskForCourse(courseId: number, taskInfo: CreateTaskDTO): Promise<Task> {
+        const course: Course = await this.getCourseById(courseId);
+        const taskToCreate: Task = this.tasksRepository.create({
+            description: taskInfo.description,
+            availableFrom: taskInfo.availableFrom,
+            availableTo: taskInfo.availableTo,
+            course
+        });
+
+        return await this.tasksRepository.save(taskToCreate);
+    }
+
+    async deleteCourseTask(courseId: number, taskId: number): Promise<string> {
+        const course: Course = await this.getCourseById(courseId);
+        const task: Task = course.tasks.find((t: Task) => t.id === taskId);
+        if (!task) {
+            throw new Error('Task does not exist!');
+        }
+        task.isDeleted = true;
+        this.tasksRepository.save(task);
+        return 'Task deleted!';
+    }
+
+    async answerTask(courseId: number, taskId: number, userId: number, answer: TaskAnswerDTO): Promise<TaskAnswer> {
+        const course: Course = await this.getCourseById(courseId);
+        console.log('course', course);
+        const user: User = await this.usersService.getUserById(userId);
+        // const task: number = course.tasks.findIndex((t: Task) => t.id == taskId);
+        // console.log('task', task);
+        // if (!task) {
+        //     throw new Error('Task does not exist!');
+        // }
+        const task: Task = await this.tasksRepository.findOne({
+            where: { id: taskId, isDeleted: false }
+        });
+        if (!task) {
+            throw new Error('Task does not exist!');
+        }
+        const newAnswer: TaskAnswer = await this.answersRepository.create({
+            answerText: answer.answerText,
+            task,
+            answeredBy: user,
+            course
+        });
+
+        return await this.answersRepository.save(newAnswer);
+    }
 }
