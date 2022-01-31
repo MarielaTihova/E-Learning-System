@@ -1,3 +1,11 @@
+.course-description {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    color: #2cbcac;
+    font-weight: bolder;
+}
+
 .courses-wrapper {
     margin-top: 15%;
     max-width: 85%;

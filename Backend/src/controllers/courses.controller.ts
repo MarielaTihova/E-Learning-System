@@ -64,7 +64,7 @@ export class CoursesController {
     }
 
     @Delete(':courseId/tasks/:taskId')
-    async deleteTask(@Param('courseId') courseId: string, @Param('taskId') taskId: string): Promise<string> {
+    async deleteTask(@Param('courseId') courseId: string, @Param('taskId') taskId: string): Promise<any> {
         return await this.coursesService.deleteCourseTask(+courseId, +taskId);
     }
 

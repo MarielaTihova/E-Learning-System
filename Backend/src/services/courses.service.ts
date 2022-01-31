@@ -115,7 +115,7 @@ export class CoursesService {
         return await this.tasksRepository.save(taskToCreate);
     }
 
-    async deleteCourseTask(courseId: number, taskId: number): Promise<string> {
+    async deleteCourseTask(courseId: number, taskId: number): Promise<any> {
         const course: Course = await this.getCourseById(courseId);
         const task: Task = course.tasks.find((t: Task) => t.id === taskId);
         if (!task) {
@@ -123,7 +123,9 @@ export class CoursesService {
         }
         task.isDeleted = true;
         this.tasksRepository.save(task);
-        return 'Task deleted!';
+        return {
+            deleteMessage: 'Successfully deleted!'
+        };
     }
 
     async answerTask(courseId: number, taskId: number, userId: number, answer: TaskAnswerDTO): Promise<TaskAnswer> {

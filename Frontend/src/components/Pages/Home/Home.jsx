@@ -1,36 +1,51 @@
-// import React from "react";
-//import { NavLink } from "react-router-dom";
-// tuk shte sedi nov HomePage i ot tuk shte navigira kum drugiq ni register i login
-
-
-import React, { useState, useEffect, useContext } from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
+import React, { useState, useEffect, useContext, useCallback } from 'react';
 import {
-  MDBNavbar,
-  MDBNavbarBrand,
-  MDBNavbarNav,
-  MDBNavItem,
-  MDBNavLink,
-  MDBNavbarToggler,
-  MDBCollapse,
   MDBMask,
   MDBRow,
   MDBCol,
-  MDBFormInline,
   MDBBtn,
   MDBView,
   MDBContainer,
-  MDBIcon
+  MDBIcon,
+  MDBBadge
 } from 'mdbreact';
-import './Home.css';
+import './Home.scss';
 import UserContext from '../../../providers/UserContext';
-import MultiCarouselPage from '../../Base/Carousel/Carousel';
+import { BASE_URL } from '../../../common/constants';
 
-const Home = () => {
-
+const Home = (props) => {
+  const history = props.history;
   const userContext = useContext(UserContext);
   const loggedUser = userContext.user;
+  const [userCourses, setUserCourses] = useState([]);
+  const [otherCourses, setOtherCourses] = useState([]);
+  const [userCoursesVisible, setUserCoursesVisible] = useState(true);
+  const [otherCoursesVisible, setOtherCoursesVisible] = useState(true);
   console.log('logged user', loggedUser);
+
+
+  const fetchCourses = useCallback(async () => {
+    if (loggedUser) {
+      fetch(`${BASE_URL}/courses`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token') || ''}`,
+        }
+      })
+        .then(r => r.json())
+        .then(courses => {
+          const userCourses = courses ? courses.filter(c => c.participants.find(p => p.id === loggedUser.id)) : [];
+          const otherCourses = courses ? courses.filter(c => !userCourses.find(uc => uc.id === c.id)) : [];
+          setUserCourses(userCourses);
+          setOtherCourses(otherCourses);
+        })
+      // courses = await courses.json()
+    }
+  }, [])
+
+  useEffect(() => {
+    fetchCourses()
+  }, [fetchCourses]);
+
   return (
     <div id='caltoaction'>
 
@@ -57,17 +72,47 @@ const Home = () => {
                     {/* <MDBNavLink to='/register' icon='user' className='mr-2'>Sign up!</MDBNavLink> */}
                   </MDBBtn>
                   <MDBBtn href='/register?role=1' rounded className='btn-purple'>
-                  <MDBIcon icon='user' className='mr-2' /> Sign up as student!
-                  {/* <MDBNavLink to='/register' icon='user' className='mr-2'>Sign up!</MDBNavLink> */}
-                </MDBBtn>
+                    <MDBIcon icon='user' className='mr-2' /> Sign up as student!
+                    {/* <MDBNavLink to='/register' icon='user' className='mr-2'>Sign up!</MDBNavLink> */}
+                  </MDBBtn>
 
                 </MDBCol>
               </MDBRow>
             </a>
           </MDBContainer>
         </MDBView>
-        }
+      }
 
+      {loggedUser &&
+        <div className='main-content'>
+          <h1> Welcome, {loggedUser.personalName}!</h1>
+
+          <div className='items'>
+            <div>
+              <MDBBadge tag="a" pill color="default"
+                onClick={() => setUserCoursesVisible(!userCoursesVisible)}>
+                <h3>Your courses: <strong>{userCourses.length}</strong></h3>
+              </MDBBadge>
+              <div className={`${userCoursesVisible ? "home-page-item-1" : ""}`}>
+                {userCourses && userCoursesVisible && userCourses.map((course, key) =>
+                  <h5 className='clickable-item' key={key} onClick={() => history.push(`courses/${course.id}`)}>{key + 1}. {course.name}</h5>
+                )}
+              </div>
+            </div>
+            <div>
+              <MDBBadge tag="a" pill color="secondary"
+                onClick={() => setOtherCoursesVisible(!otherCoursesVisible)}>
+                <h3>Other courses: <strong>{otherCourses.length}</strong></h3>
+              </MDBBadge>
+              <div className={`${otherCoursesVisible ? "home-page-item-2" : ""}`}>
+                {otherCourses && otherCoursesVisible && otherCourses.map((course, key) =>
+                  <h5 className='clickable-item' key={key} onClick={() => history.push(`courses/${course.id}`)}>{key + 1}. {course.name}</h5>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      }
     </div >
 
   );

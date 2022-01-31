@@ -1,37 +1,56 @@
 import React from 'react';
+import { MDBBtn, MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText, MDBRow, MDBCol, MDBView, MDBIcon } from 'mdbreact';
+
 import "./User2.css";
 import "../../assets/icons/font-awesome/font-awesome.css";
 import PropTypes from 'prop-types';
 
 const User2 = (props) => {
     const user = props.user;
+    const userRoles = ["No role", "Student", "Admin", "Teacher"];
     console.log("User2", user);
+
     return (
         <div>
-            <div className="container1">
-                <div className="card1">
-                    <div className="card2">
-                        <h2>Your profile information</h2>
-                        <div className="element">
-                            <p className="card__name">User name:</p>
-                            <div>{user.username}</div>
-                        </div>
-                        <div className="element">
-                            <p className="card__name">Personal name:</p>
-                            <div>{user.personalName}</div>
-                        </div>
-                        <div className="grid-container">
-                        </div>
-                        <ul className="social-icons">
-                            <li><a href="#"><i className="fab fa-instagram white-text mr-lg-4"></i></a></li>
-                            <li><a href="#"><i className="fab fa-twitter white-text mr-lg-4"></i></a></li>
-                            <li><a href="#"><i className="fab fa-linkedin-in white-text mr-lg-4"></i></a></li>
-                            <li><a href="#"><i className="fab fa-facebook-f white-text mr-lg-4"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+            <div className='card-narrower container1'>
+                <MDBCard wide cascade>
+                    <MDBView cascade>
+                        <MDBCardImage
+                            hover
+                            overlay='white-slight'
+                            className='card-img-top'
+                            src='https://res.cloudinary.com/startup-grind/image/upload/c_fill,dpr_2.0,f_auto,g_center,h_250,q_auto:good,w_250/v1/gcs/platform-data-slack/avatars/vaibhav_shrivastava.png'
+                            alt='Card cap'
+                        />
+                    </MDBView>
 
+                    <MDBCardBody cascade className='text-center'>
+                        <MDBCardTitle className='card-title'>
+                            <strong>{user.personalName}</strong>
+                        </MDBCardTitle>
+
+                        <p className='font-weight-bold blue-text'>Role: {userRoles[user.role]}</p>
+
+                        <MDBCardText>
+                            Participating in <b>{user?.courses?.length} courses</b>
+                        </MDBCardText>
+
+                        <MDBCol md='12' className='d-flex justify-content-center'>
+                            <a href='!#' className='px-2 fa-lg li-ic'>
+                                <MDBIcon fab icon='linkedin-in'></MDBIcon>
+                            </a>
+
+                            <a href='!#' className='px-2 fa-lg tw-ic'>
+                                <MDBIcon fab icon='twitter'></MDBIcon>
+                            </a>
+
+                            <a href='!#' className='px-2 fa-lg fb-ic'>
+                                <MDBIcon fab icon='facebook-f'></MDBIcon>
+                            </a>
+                        </MDBCol>
+                    </MDBCardBody>
+                </MDBCard>
+            </div>
         </div>
     )
 }

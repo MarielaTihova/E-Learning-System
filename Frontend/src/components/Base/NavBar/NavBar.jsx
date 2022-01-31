@@ -74,7 +74,7 @@ const NavBar = (props) => {
         <MDBContainer className='container'>
           <img height="75px" padding="0px" margin="0px" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.freeiconspng.com%2Fuploads%2Fowl-icon-20.png&f=1&nofb=1"></img>
           <MDBNavbarBrand>
-            <MDBNavLink to='/profile' style={{ color: "black", marginTop: "10px" }}>
+            <MDBNavLink to='/home' style={{ color: "black", marginTop: "10px" }}>
 
               <strong>E-Learn</strong>
             </MDBNavLink>

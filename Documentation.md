@@ -1,6 +1,50 @@
 # E-Learning System
 
-##  Project Requirements
+
+## Description
+
+The current project represents an e-learning system with. The system has the following functionalities:
+
+## General
+1. Register user
+2. Login
+3. Assign role to user
+
+## Student profile 
+1. View all courses
+2. View your courses
+3. Join a course (enrol)
+4. View course details
+5. See course tasks
+6. Answer a task
+7. View your profile
+
+
+## Teacher profile
+1. View the courses they teach
+2. Create a course
+3. Edit course 
+4. View course details
+5. View tasks for course
+6. Create new task
+7. Delete task
+8. View task answers by students
+9. View your profile
+
+## Admin profile
+- UI to be added
+
+
+## Authorisation
+The application supports 3 types of authorisation, according to which, access is being granted or denied.
+- Student
+- Teacher
+- Admin
+
+
+### TBD
+Some of the functionalities like admin actions in the user controller are only implemented in the backend. Although they are not required, we decided that it's nice to have them. Also more major requirement that is still missing is the part for Course materials.
+##  Setup
 
 ### Server
 
@@ -49,36 +93,7 @@
 
 
 
-## Functionalities
 
-### User
-1. Register user
-2. Login
-3. Assign role to user
-
-### Courses
-1.  View all courses
-2.  View details for course
-3.  Create course
-4.  Edit course
-5.  Enrol in a course
-
-### Tasks
-1.  Add task to course
-2. View all tasks for course
-3. Answer a task (if you are logged as student)
-4. View task answers (if you are a teacher)
-5. Delete a task (if you are a teacher)
-
-## Authorisation
-The application supports 3 types of authorisation, according to which, access is being granted or denied.
-- Student
-- Teacher
-- Admin
-
-
-### TBD
-Some of the functionalities like admin actions in the user controller are only implemented in the backend. Although they are not required, we decided that it's nice to have them. Also more major requirement that is still missing is the part for Course materials.
 
 
 
