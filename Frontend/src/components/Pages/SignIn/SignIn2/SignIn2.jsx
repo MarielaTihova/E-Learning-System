@@ -268,26 +268,6 @@ const SignIn = (props) => {
           </MDBRow>
         </MDBContainer>
       </MDBView>
-
-      {/* <MDBContainer>
-        <MDBRow className="py-5">
-          <MDBCol md="12" className="text-center">
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat noooksn proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </p>
-          </MDBCol>
-        </MDBRow>
-      </MDBContainer> */}
-      {/* {isLogin
-              ? <MDBBtn variant="dark" block size="lg" onClick={login}>Login</MDBBtn>
-              : <MDBBtn variant="dark" block size="lg" onClick={register}>Register</MDBBtn>}
-            {!isLogin ? <MDBBtn variant="dark" block size="lg" onClick={() => { history.push('/login') }}>Have an account? Login</MDBBtn> : null} */}
       <a name="aboutus"></a>
     </div>
   );

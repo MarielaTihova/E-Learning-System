@@ -100,7 +100,7 @@ const MyCourses = (props) => {
             </CardContent>
             <CardActions>
               {userIsTeacher && <Button size="small" onClick={() => setUpdateCourseDialogOpened(true)}>Edit</Button>}
-              <Button size="small" onClick={() => history.push(`/courses/${course.id}`)}>View tasks</Button>
+              <Button size="small" onClick={() => history.push(`/courses/${course.id}`)}>View course</Button>
             </CardActions>
           </Card>
         )}

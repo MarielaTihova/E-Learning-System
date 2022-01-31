@@ -1,4 +1,6 @@
-import _ from 'lodash'
+import _ from 'lodash';
+import { MDBContainer, MDBRow, MDBBadge, MDBTabPane, MDBTabContent, MDBNav, MDBNavItem, MDBNavLink, MDBIcon } from
+  "mdbreact";
 
 import React, { useEffect, useState, useContext, useCallback } from "react";
 import { useFormik } from "formik"
@@ -24,43 +26,9 @@ import './CourseDetail.scss';
 
 import { datetime } from '../../../utils/datetime';
 
-import { BASE_URL } from "../../../common/constants";
+import { BASE_URL, DAYS_OF_THE_WEEK_CHOICES } from "../../../common/constants";
 
 import AddTaskDialog from "../../AddTaskDialog";
-
-const testTasks = [
-  {
-    id: "courseTaskIdasjf'sadf'nf",
-    description: "What Would You Rather Throw Away: Love Or Money?",
-    availableFrom: "2022-01-19T14:44:35.912Z",
-    availableTo: "2022-01-10T14:44:35.912Z",
-    answers: [
-      { id: "some id here", studentName: "Bogi", answer: "Money for sure!" },
-      { id: "some id here", studentName: "Toni", answer: "Love, I just love my money!" },
-    ]
-  },
-  {
-    id: "courseTaskIdasjjjjsadf'nf",
-    description: "What Was Your Fondest Memory Of High School?",
-    availableFrom: "2022-01-04T14:44:35.912Z",
-    availableTo: "2022-01-10T14:44:35.912Z",
-    answers: []
-  },
-  {
-    id: "courseTaskIdasaaaaadf'nf",
-    description: "If You Had Three Wishes, What Would You Wish For?",
-    availableFrom: "2022-01-14T14:44:35.912Z",
-    availableTo: "2022-02-14T14:44:35.912Z",
-    answers: []
-  },
-  {
-    id: "courseTaskIdasjf'sadfwwwwwwwwww",
-    description: "What's The Most Beautiful Place You've Ever Seen?",
-    availableFrom: "2022-01-09T14:44:35.912Z",
-    availableTo: "2022-01-22T14:44:35.912Z",
-    answers: []
-  }
-]
 
 const CourseDetail = (props) => {
   const history = props.history;
@@ -70,9 +38,17 @@ const CourseDetail = (props) => {
   const [inputToDisplay, setInputToDisplay] = useState(null)
   const [showTaskAnswers, setShowTaskAnswers] = useState(null)
 
-  const [selectedTask, setSelectedTask] = useState(null)
+  const [selectedTask, setSelectedTask] = useState(null);
+  const [currentCourse, setCurrentCourse] = useState(null);
 
   const [updateCourseDialogOpened, setUpdateCourseDialogOpened] = useState(false);
+  const [activeItem, setActiveItem] = useState("1");
+
+  const toggle = (tab) => {
+    if (activeItem !== tab) {
+      setActiveItem(tab)
+    }
+  }
 
   const location = useLocation()
 
@@ -98,6 +74,7 @@ const CourseDetail = (props) => {
     response = await response.json()
     console.log('course details', response);
     console.log('tasks', response.tasks);
+    setCurrentCourse(response);
     setCourseTasks(response.tasks.filter(task => !task.isDeleted));
 
   }, [])
@@ -139,6 +116,50 @@ const CourseDetail = (props) => {
     onSubmit: handleSubmit
   });
 
+  const deleteTask = (taskId) => {
+    fetch(`${BASE_URL}/courses/${courseId}/tasks/${taskId}`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token') || ''}`,
+      }
+    })
+      .then(r => r.json())
+      .then(result => {
+        console.log('delete result', result);
+        toast.configure();
+        toast('Task deleted!', { position: toast.POSITION.TOP_RIGHT });
+      })
+    // .catch(alert);
+    const filteredTasks = courseTasks.filter(t => t.id !== taskId);
+    setCourseTasks(filteredTasks);
+  }
+
+  const showJoinButton = (course) => {
+    const userEnrolledInCourse = !!course?.participants.find(p => p.id === loggedUser.id);
+    return !userEnrolledInCourse;
+  }
+
+  const handleEnrollCourse = (courseId) => {
+    console.log("Enroll", courseId);
+
+    fetch(`${BASE_URL}/courses/enroll/${courseId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('token') || ''}`
+      },
+      body: JSON.stringify({}),
+    })
+      .then(r => r.json())
+      .then(result => {
+        console.log('Enroll course', result);
+        fetchCourses();
+        toast.configure();
+        toast('Successfuly joined the course!', { position: toast.POSITION.TOP_RIGHT });
+
+      })
+      .catch(alert);
+  }
   if (error) {
     return (
       <div>
@@ -153,81 +174,131 @@ const CourseDetail = (props) => {
 
   return (
     <div className="courses-wrapper">
-      {courseTasks.length > 0 ? courseTasks.map((task, key) =>
-        <Card onClick={() => console.log("test")} key={task.id} sx={{
-          marginBottom: "20px"
-        }}>
-          <CardContent>
-            <Stack sx={{
-              "flexDirection": "row",
-              "justifyContent": "space-between",
-            }}>
-              <Typography variant="subtitle2" >
-                {task.description}
-              </Typography>
-              <Stack>
-                <Typography>
-                  Available from: {datetime(task.availableFrom).format("DD/MM/YY hh:mm A")}
-                </Typography>
-                <Typography>
-                  Available to: {datetime(task.availableFrom).format("DD/MM/YY hh:mm A")}
-                </Typography>
-              </Stack>
-            </Stack>
-            {inputToDisplay == `${task.id}` &&
-              <form onSubmit={formik.handleSubmit}>
-                <TextField
-                  multiline
-                  rows={4}
-                  margin="dense"
-                  id="answerText"
-                  label="Answer"
-                  type="text"
-                  fullWidth
-                  onChange={formik.handleChange}
-                  variant="outlined"
-                />
-                <Button type="submit">Submit answer</Button>
-              </form>
+      <h2 className='course-description'>
+        {currentCourse && currentCourse.name}
+        {showJoinButton(currentCourse) && <Button size="small" onClick={() => handleEnrollCourse(currentCourse.id)}>Join</Button>}
+
+      </h2>
+      <MDBContainer>
+        <MDBNav className="nav-tabs mt-5">
+          <MDBNavItem>
+            <MDBNavLink link to="#" active={activeItem === "1"} onClick={() => toggle("1")} role="tab" >
+              Course details
+            </MDBNavLink>
+          </MDBNavItem>
+          <MDBNavItem>
+            <MDBNavLink link to="#" active={activeItem === "2"} onClick={() => toggle("2")} role="tab" >
+              Tasks
+            </MDBNavLink>
+          </MDBNavItem>
+          <MDBNavItem>
+            <MDBNavLink link to="#" active={activeItem === "3"} onClick={() => toggle("3")} role="tab" >
+              Participants
+            </MDBNavLink>
+          </MDBNavItem>
+        </MDBNav>
+        <MDBTabContent activeItem={activeItem} >
+          <MDBTabPane tabId="1" role="tabpanel">
+            {currentCourse &&
+              <div className="mt-2">
+                <h6> <b>Day of the week: </b>
+                  <span><MDBBadge color="warning">{_.find(DAYS_OF_THE_WEEK_CHOICES, ['value', currentCourse.dayOfWeek])?.label}</MDBBadge></span>
+                </h6>
+                <h6><b>Start time:</b> <MDBBadge color="default">{currentCourse.startTime}</MDBBadge></h6>
+                <h6><b>End time:</b> <MDBBadge color="danger">{currentCourse.endTime}</MDBBadge></h6>
+                <h6><b>Description:</b> {currentCourse.description}</h6>
+              </div>}
+          </MDBTabPane>
+          <MDBTabPane tabId="2" role="tabpanel">
+            {currentCourse &&
+              <div>
+                {courseTasks.length > 0 ? courseTasks.map((task, key) =>
+                  <Card onClick={() => console.log("test")} key={task.id} sx={{
+                    marginBottom: "20px"
+                  }}>
+                    <CardContent>
+                      <Stack sx={{
+                        "flexDirection": "row",
+                        "justifyContent": "space-between",
+                      }}>
+                        <Typography variant="subtitle2" >
+                          {task.description}
+                        </Typography>
+                        <Stack>
+                          <Typography>
+                            Available from: <MDBBadge color="default">{datetime(task.availableFrom).format("DD/MM/YY hh:mm A")}</MDBBadge>
+                          </Typography>
+                          <Typography>
+                            Available to: <MDBBadge color="danger">{datetime(task.availableFrom).format("DD/MM/YY hh:mm A")}</MDBBadge>
+                          </Typography>
+                        </Stack>
+                      </Stack>
+                      {inputToDisplay == `${task.id}` &&
+                        <form onSubmit={formik.handleSubmit}>
+                          <TextField
+                            multiline
+                            rows={4}
+                            margin="dense"
+                            id="answerText"
+                            label="Answer"
+                            type="text"
+                            fullWidth
+                            onChange={formik.handleChange}
+                            variant="outlined"
+                          />
+                          <Button type="submit">Submit answer</Button>
+                        </form>
+                      }
+                    </CardContent>
+
+                    <CardActions>
+                      {userIsTeacher && (_.isNull(showTaskAnswers) || showTaskAnswers !== task.id) && <>
+                        <Button size="small" onClick={() => deleteTask(task.id)}>Delete</Button>
+                        <Button size="small" onClick={() => setShowTaskAnswers(task.id)}>View answers</Button>
+
+                      </>}
+                      {userIsTeacher && !_.isNull(showTaskAnswers) && showTaskAnswers === task.id &&
+                        <>
+                          <Stack>
+                            {_.isEmpty(task.answers) ? <Typography variant="subtitle2" >Currently no answers</Typography> : task.answers.map((answer) =>
+                              <Stack key={answer.id} sx={{
+                                "flexDirection": "row",
+
+                              }}>
+                                <Typography variant="subtitle2">{answer.madeBy}:</Typography>
+                                <Typography>{answer.answertext}</Typography>
+                              </Stack>
+                            )}
+                            <Button size="small" onClick={() => setShowTaskAnswers(null)}>Hide answers</Button>
+                          </Stack>
+                        </>
+                      }
+                      {!userIsTeacher && _.isNull(inputToDisplay) && <Button size="small" onClick={() => { setInputToDisplay(task.id); setSelectedTask(task) }}>Answer</Button>}
+
+                    </CardActions>
+                  </Card>
+
+                )
+                  : <div>
+                    <h1>No tasks for this course!</h1>
+                  </div>
+                }
+                <Button size="small" onClick={() => history.replace('/my-courses')}>Back to courses</Button >
+
+                {userIsTeacher && <div className="add-button"><AddTaskDialog onSubmit={() => fetchCourses()} courseId={courseId} /></div>}
+
+              </div>
             }
-          </CardContent>
-
-          <CardActions>
-            {userIsTeacher && (_.isNull(showTaskAnswers) || showTaskAnswers !== task.id) && <>
-              <Button size="small" onClick={() => console.log("task delete")}>Delete</Button>
-              <Button size="small" onClick={() => setShowTaskAnswers(task.id)}>View answers</Button>
-
-            </>}
-            {userIsTeacher && !_.isNull(showTaskAnswers) && showTaskAnswers === task.id &&
-              <>
-                <Stack>
-                  {_.isEmpty(task.answers) ? <Typography variant="subtitle2" >Currently no answers</Typography> : task.answers.map((answer) =>
-                    <Stack key={answer.id} sx={{
-                      "flexDirection": "row",
-
-                    }}>
-                      <Typography variant="subtitle2">{answer.madeBy}:</Typography>
-                      <Typography>{answer.answertext}</Typography>
-                    </Stack>
-                  )}
-                  <Button size="small" onClick={() => setShowTaskAnswers(null)}>Hide answers</Button>
-                </Stack>
-              </>
-            }
-            {!userIsTeacher && _.isNull(inputToDisplay) && <Button size="small" onClick={() => { setInputToDisplay(task.id); setSelectedTask(task) }}>Answer</Button>}
-
-          </CardActions>
-        </Card>
-
-      )
-        : <div>
-          <h1>No tasks for this course!</h1>
-        </div>
-      }
-      <Button size="small" onClick={() => history.goBack()}>Back to courses</Button>
-
-      {userIsTeacher && <div className="add-button"><AddTaskDialog onSubmit={() => fetchCourses()} courseId={courseId} /></div>}
-
+          </MDBTabPane>
+          <MDBTabPane tabId="3" role="tabpanel">
+            <div className="mt-2">
+              {currentCourse &&
+                currentCourse.participants.map((p, index) => <h6 key={index}>{index + 1}.{p.personalName}</h6>)
+              }
+            </div>
+          </MDBTabPane>
+        </MDBTabContent>
+      </MDBContainer>
     </div>
   );
 };
