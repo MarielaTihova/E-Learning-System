@@ -260,15 +260,18 @@ const CourseDetail = (props) => {
                       {userIsTeacher && !_.isNull(showTaskAnswers) && showTaskAnswers === task.id &&
                         <>
                           <Stack>
-                            {_.isEmpty(task.answers) ? <Typography variant="subtitle2" >Currently no answers</Typography> : task.answers.map((answer) =>
-                              <Stack key={answer.id} sx={{
-                                "flexDirection": "row",
-
-                              }}>
-                                <Typography variant="subtitle2">{answer.madeBy}:</Typography>
-                                <Typography>{answer.answertext}</Typography>
-                              </Stack>
-                            )}
+                            {_.isEmpty(task.answers) ? <Typography variant="subtitle2" >Currently no answers</Typography> :
+                              <div>
+                                {task.answers.map((answer, index) =>
+                                  <Stack key={answer.id} sx={{
+                                    "flexDirection": "row"
+                                  }}>
+                                    <Typography variant="subtitle2">{answer.madeBy}</Typography>
+                                    <Typography>{index + 1}.{answer.answerText}</Typography>
+                                  </Stack>)
+                                }
+                              </div>
+                            }
                             <Button size="small" onClick={() => setShowTaskAnswers(null)}>Hide answers</Button>
                           </Stack>
                         </>

@@ -40,7 +40,7 @@ const Home = (props) => {
         })
       // courses = await courses.json()
     }
-  }, [])
+  }, []);
 
   useEffect(() => {
     fetchCourses()

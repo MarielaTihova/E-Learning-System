@@ -32,7 +32,7 @@ export class CoursesService {
     async getMyCourses(userId: number): Promise<Course[]> {
         const loggedUser: User = await this.usersService.getUserById(userId);
         const allCourses: Course[] = await (await this.coursesRepository.find({
-            relations: ['participants', 'tasks']
+            relations: ['participants', 'tasks', 'tasks.answers']
         }));
         return allCourses.filter((course: Course) => course.participants.find((user: User) => user.id === loggedUser.id));
     }
@@ -40,7 +40,7 @@ export class CoursesService {
     async getCourseById(courseId: number): Promise<Course> {
         return await this.coursesRepository.findOne({
             where: { id: courseId },
-            relations: ['participants', 'tasks']
+            relations: ['participants', 'tasks', 'tasks.answers']
         });
     }
 
